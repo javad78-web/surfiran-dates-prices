@@ -45,7 +45,7 @@ $exist_tables = array_unique($tablename);
                             <div class="table_name"><?php echo $tablename; ?></div>
                             <div class="edit">
                                 <button id="<?php echo $tablename; ?>" class="btn-edit">View & Edit</button>
-                                <button id="<?php echo $tablename; ?>" class="btn btn-danger delete_table" style="margin-left: 10px; border-radius: 20px;">Delete Table</button>
+                                <button id="<?php echo $tablename; ?>" class="btn btn-danger delete_table">Delete Table</button>
                             </div>
                             <div class="shortcode"><?php echo "[" . strtolower(str_replace([',', '_', '-', " "], '', $tablename)) . " table='" . $tablename . "']"; ?></div>
                         </div>
@@ -75,12 +75,14 @@ $exist_tables = array_unique($tablename);
                 <?php wp_nonce_field('wp_rest') ?>
                 <div class="table-container" id="edit_table">
                     <div class="table-header-container">
-                        <div class="table-header-item" style="margin-left: -6% ;"></div>
+                        <div class="table-header-item"></div>
                         <div class="table-header-item">Start Date</div>
                         <div class="table-header-item">End Date</div>
                         <div class="table-header-item">Price</div>
                         <div class="table-header-item">Single Price</div>
+                        <div class="table-header-item">Sale Price</div>
                         <div class="table-header-item">Tour Status</div>
+                        <div class="table-header-item">Tour Note</div>
                         <div class="table-header-item">Options</div>
                     </div>
                     <div class="table-body-container">
