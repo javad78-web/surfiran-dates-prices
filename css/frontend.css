@@ -1,0 +1,373 @@
+.dateprice_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+}
+
+.dateprice_table_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dateprice_table_header_container {
+  background-color: #f3fdffbf;
+  width: 100%;
+  display: flex;
+  padding: 15px;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+  font-weight: bolder;
+  border-radius: 3px;
+  box-shadow: 0 0 2px #989898;
+  color: #212121;
+  text-shadow: 0px 0px 3px #fff;
+}
+
+.table_item_header {
+  display: none;
+}
+
+.dateprice_table_header_item {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
+
+.dateprice_table_body_container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.dateprice_table_row {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  padding: 7px 0 0 0;
+}
+
+.row_card_items {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f0f7ff69;
+  padding: 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  box-shadow: 0 0 1px #a7a7a7;
+  transition: ease-in-out 0.3s;
+}
+
+.row_card_items:hover {
+  background-color: #aae5fd33;
+}
+
+.dateprice_table_item {
+  width: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: bolder;
+}
+
+.show {
+  height: auto;
+}
+
+.hide {
+  height: 0;
+}
+
+.row_expand {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  background-color: #fff;
+  margin-top: 5px;
+  border-radius: 3px;
+  box-shadow: 0px 0px 2px #a3a3a3;
+  display: none;
+}
+
+.tour_detail {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: end;
+  padding: 20px 20px 15px 20px;
+}
+
+.tour_detail_price {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  font-size: 25px;
+}
+
+.tour_detail_desc {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+  align-items: center;
+  color: #000000c7;
+  font-size: 13px;
+  margin-top: 9px;
+}
+
+strong {
+  color: black !important;
+}
+
+.tour_detail_singleprice {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  color: #333;
+  font-size: 15px;
+  margin-top: 2px;
+}
+
+.tour_request_form {
+  display: flex;
+  width: 100%;
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 38px;
+  margin-right: 12px;
+  flex-shrink: 7;
+}
+
+.tour_request_form > button {
+  display: flex;
+  width: 100%;
+  background-color: #0a7bbd;
+  color: black;
+  justify-content: start;
+  align-items: center;
+  border: none;
+  padding: 7px 30px;
+  text-align: center;
+  font-size: 17px;
+  font-weight: bolder;
+  text-shadow: -1px 0px 1px #292929;
+  border-radius: 30px;
+  box-shadow: 0px 0px 1px #656565;
+  transition: ease-in-out 0.3s;
+}
+
+.tour_request_form > button:hover {
+  background-color: #448bb5d6;
+}
+
+.tour_request_form > button > a {
+  color: white;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  transition: ease-in-out 0.3s;
+}
+
+.tour_request_form > button > a:hover {
+  color: #e1e1e1;
+}
+
+.dateprice_table_footer_container {
+  background-color: #c2f7ff;
+  display: flex;
+  width: 100%;
+  padding: 8px;
+  justify-content: center;
+  align-content: center;
+  font-size: 15px;
+  font-weight: bolder;
+  box-shadow: 0px -4px 5px #cecece;
+  margin-top: -3px;
+  color: #00000094;
+  text-shadow: -1px 1px 4px white;
+  cursor: pointer;
+  opacity: 0.6;
+  border-radius: 0 0 3px 3px;
+  transition: ease-in-out 0.3s;
+}
+
+.dateprice_table_footer_container:hover {
+  opacity: 1;
+}
+
+.table_label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 15px;
+}
+.innertext_label {
+  font-family: palatino linotype;
+  font-style: italic;
+  color: #0a7bbd;
+}
+.arrow_icon_dateandprice {
+  background-image: url(./icon/arrow.png);
+  width: 94px;
+  height: 23px;
+  background-repeat: no-repeat;
+  display: none;
+  transform: scale(0.9);
+  margin-left: -10px;
+}
+
+.status_icon_dateandprice_available {
+  background-image: url(./icon/available.png);
+  width: 22px;
+  height: 21px;
+  transform: scale(0.7);
+  margin-top: -3px;
+}
+
+.status_icon_dateandprice_guaranteed {
+  background-image: url(./icon/guaranteed.png);
+  width: 23px;
+  height: 23px;
+  transform: scale(0.7);
+}
+
+.table_item_content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+@media all and (max-width: 865px) {
+   .arrow_icon_dateandprice {
+    display: flex;
+  }
+
+  .dateprice_table_row {
+    padding: 0;
+    margin-top: 7px;
+    box-shadow: 0 0 1px #a7a7a7;
+    border-radius: 3px;
+  }
+
+  .dateprice_table_header_container {
+    display: none;
+  }
+
+  .arrow_icon_dateandprice {
+    width: 9%;
+  }
+
+  .row_expand {
+    display: flex;
+    flex-direction: column;
+    box-shadow: none;
+    background-color: #f9fcff;
+    margin: 0;
+  }
+
+  .table_item_header {
+    width: auto;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 100;
+    color: #0000008c;
+  }
+
+  .surfiran_toggle_icon {
+    display: none;
+  }
+
+  .align_end_respons {
+    align-items: end !important;
+  }
+
+  .row_card_items {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px;
+    height: 145px;
+    box-shadow: none;
+    pointer-events: none;
+  }
+
+  .dateprice_table_item {
+    width: 46%;
+    display: flex;
+    text-align: center;
+    justify-content: start;
+    align-items: start;
+    font-size: 13px;
+    font-weight: bolder;
+    margin-bottom: 5px;
+    flex-direction: column;
+  }
+  .table_item_content {
+    display: flex;
+    justify-content: start;
+    width: auto;
+    align-items: center;
+  }
+
+  .tour_detail {
+    padding: 6px 11px 11px 11px;
+  }
+  .tour_detail_price {
+    display: none;
+  }
+
+  .tour_detail_desc {
+    display: none;
+  }
+
+  .tour_detail_singleprice {
+    font-size: 13px;
+    justify-content: space-between;
+  }
+  .tour_request_form {
+    margin: 0px;
+    width: 93%;
+    margin-bottom: 14px;
+  }
+  .tour_request_form > button {
+    padding: 6px;
+    font-size: 15px;
+    border-radius: 6px;
+	height: 36px;
+  }
+
+  .align_margin_set {
+    margin-left: -5px;
+  }
+	
+  .respons_price {
+    font-size: 17px;
+  }
+
+  .status_header_reponse {
+    display: none;
+  }
+}
