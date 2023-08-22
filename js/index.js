@@ -336,13 +336,13 @@ jQuery(document).ready(function ($) {
                     </select>
                     </div>`;
           output +=
-            '<div class="table-body-item" style="text-align: center; width: auto;"><button type="button" name="tour_note" class="btn btn-info btn-xs px-4 tour-note-btn" id="' +
+            '<div class="table-body-item options_btn" id="' +
             row.id +
-            '">Note</button></div>';
-          output +=
-            '<div class="table-body-item" style="text-align: center; width: auto;"><button type="button" name="delete_row" class="btn btn-danger btn-xs px-4 delete-btn delete_row" id="' +
-            row.id +
-            '">Delete</button></div>';
+            '"><span class="dashicons dashicons-admin-generic"></span></div>';
+          output += `<div class="options_tab">
+                      <button type="button" name="tour_note" class="tour-note-btn" id="' +row.id +'">Note</button>
+                      <button type="button" name="delete_row" class="delete-btn delete_row" id="' +row.id +'">Delete</button>
+                     </div>`;
           output +=
             '<input type="hidden" name="hidden_tablename[]" id="tablename" class="tablename" value="' +
             row.tablename +
@@ -388,13 +388,14 @@ jQuery(document).ready(function ($) {
     $("body").css("overflow", "auto");
     setTimeout(function () {
       output = `<div class="table-header-container">
-            <div class="table-header-item" style="margin-left: -6% ;"></div>
-            <div class="table-header-item">Start Date</div>
-            <div class="table-header-item">End Date</div>
-            <div class="table-header-item">Price</div>
-            <div class="table-header-item">Single Price</div>
-            <div class="table-header-item">Tour Status</div>
-            <div class="table-header-item">Options</div>
+      <div class="table-header-item"></div>
+      <div class="table-header-item">Start Date</div>
+      <div class="table-header-item">End Date</div>
+      <div class="table-header-item">Price</div>
+      <div class="table-header-item">Single Price</div>
+      <div class="table-header-item">Sale Price</div>
+      <div class="table-header-item">Tour Status</div>
+      <div class="table-header-item">Options</div>
         </div>
         <div class="table-body-container">
         	<div class="main_overlay">
@@ -434,13 +435,14 @@ jQuery(document).ready(function ($) {
           $(".view_and_edit").fadeOut("Fast");
           setTimeout(function () {
             output = `<div class="table-header-container">
-                            <div class="table-header-item" style="margin-left: -6% ;"></div>
-                            <div class="table-header-item">Start Date</div>
-                            <div class="table-header-item">End Date</div>
-                            <div class="table-header-item">Price</div>
-                            <div class="table-header-item">Single Price</div>
-                            <div class="table-header-item">Tour Status</div>
-                            <div class="table-header-item">Options</div>
+            <div class="table-header-item"></div>
+            <div class="table-header-item">Start Date</div>
+            <div class="table-header-item">End Date</div>
+            <div class="table-header-item">Price</div>
+            <div class="table-header-item">Single Price</div>
+            <div class="table-header-item">Sale Price</div>
+            <div class="table-header-item">Tour Status</div>
+            <div class="table-header-item">Options</div>
                         </div>
                         <div class="table-body-container">
                             <div class="main_overlay">
@@ -458,4 +460,3 @@ jQuery(document).ready(function ($) {
     });
   });
 });
-

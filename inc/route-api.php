@@ -59,27 +59,27 @@ function update_surfiran_api_callback($data)
         $end_date = sanitize_text_field($params['enddate'][$i]);
         $price = sanitize_text_field($params['price'][$i]);
         $single_price = sanitize_text_field($params['singleprice'][$i]);
-        $single_price = sanitize_text_field($params['sale_price'][$i]);
+        $sale_price = sanitize_text_field($params['saleprice'][$i]);
         $tour_status = sanitize_text_field($params['tourstatus'][$i]);
+        $tour_note = sanitize_text_field($params['tour_note'][$i]);
         $form_tablename = sanitize_text_field($params['hidden_tablename'][$i]);
         $position = sanitize_text_field($params['hidden_position'][$i]);
-        $position = sanitize_text_field($params['hidden_position'][$i]);
-
 
         $args = [
             'startdate'     =>  $start_date,
             'enddate'       =>  $end_date,
             'price'         =>  $price,
             'singleprice'   =>  $single_price,
+            'sale_price'    =>  $sale_price,
             'tourstatus'    =>  $tour_status,
             'tablename'     =>  $form_tablename,
-            'position'      =>  $position
+            'date_note'     =>  $tour_note,
+            'position'      =>  $position,
         ];
 
         if (empty($id) || !isset($id)) {
             $wpdb->insert($tablename, $args);
         } else {
-
             $wpdb->update($tablename, $args, ['id' => $id]);
         }
     }

@@ -82,7 +82,6 @@ $exist_tables = array_unique($tablename);
                         <div class="table-header-item">Single Price</div>
                         <div class="table-header-item">Sale Price</div>
                         <div class="table-header-item">Tour Status</div>
-                        <div class="table-header-item">Tour Note</div>
                         <div class="table-header-item">Options</div>
                     </div>
                     <div class="table-body-container">
