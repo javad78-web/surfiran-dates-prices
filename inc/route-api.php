@@ -141,7 +141,13 @@ function get_surfiran_api_callback($data)
         $table_id = sanitize_text_field($params['table_id']);
 
         $query = "SELECT * FROM $tablename WHERE tablename= '$table_id' ORDER BY position ASC";
+    } elseif (isset($params['row_id'])) {
+
+        $row_id = sanitize_text_field($params['row_id']);
+
+        $query = "SELECT * FROM $tablename WHERE id= $row_id";
     } else {
+
         $query = "SELECT * FROM $tablename";
     }
 

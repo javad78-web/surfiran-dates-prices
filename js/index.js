@@ -225,11 +225,11 @@ jQuery(document).ready(function ($) {
         </select>
         </div>`;
     output +=
-      '<div class="table-body-item" style="text-align: center; width: auto;"><button type="button" name="tour_note" class="btn btn-info btn-xs px-4 tour-note-btn" id="' +
-      new_rowid +
-      '">Note</button></div>';
-    output +=
-      '<div class="table-body-item" style="text-align: center; width: auto;"><button type="button" name="delete_row" class="btn btn-danger btn-xs px-4 delete-btn delete_row" >Delete</button></div>';
+      '<div class="table-body-item options_btn"><div class="btn_option_tab"><span class="dashicons dashicons-admin-generic"></span></div></div>';
+    output += `<div class="options_tab" style="display: none;">
+                  <button type="button" name="tour_note" class="surf-custom-btn tour-note-btn">Note</button>
+                  <button type="button" name="delete_row" class="surf-custom-btn delete-btn delete_row">Delete</button>
+               </div>`;
     output +=
       '<input type="hidden" name="hidden_tablename[]" id="tablename" class="tablename" value="' +
       tablename_new +
@@ -338,10 +338,10 @@ jQuery(document).ready(function ($) {
           output +=
             '<div class="table-body-item options_btn" id="' +
             row.id +
-            '"><span class="dashicons dashicons-admin-generic"></span></div>';
-          output += `<div class="options_tab">
-                      <button type="button" name="tour_note" class="tour-note-btn" id="' +row.id +'">Note</button>
-                      <button type="button" name="delete_row" class="delete-btn delete_row" id="' +row.id +'">Delete</button>
+            '"><div class="btn_option_tab"><span class="dashicons dashicons-admin-generic"></span></div></div>';
+          output += `<div id="${row.id}" class="options_tab" style="display: none;">
+                      <button type="button" name="tour_note" class="surf-custom-btn tour-note-btn" id=${row.id}>Note</button>
+                      <button type="button" name="delete_row" class="surf-custom-btn delete-btn delete_row" id=${row.id}>Delete</button>
                      </div>`;
           output +=
             '<input type="hidden" name="hidden_tablename[]" id="tablename" class="tablename" value="' +
@@ -408,6 +408,56 @@ jQuery(document).ready(function ($) {
         </div> `;
       $("#edit_table").html(output);
     }, 500);
+  });
+
+  $(document).on("click", ".btn_option_tab", function optionTab() {
+    const get_current_row_id = $(this).parent().attr("id");
+    const option_parent = $(this).parent();
+    const option_tab = option_parent.next(".options_tab");
+    const option_tab_id = option_tab.attr("id");
+    if (option_tab.css("display") == "none") {
+      $(document).find(".options_tab").css("display", "none");
+      option_tab.show("fast");
+      option_tab.css("display", "flex");
+    } else {
+      option_tab.css("display", "none");
+      option_tab.hide("fast");
+    }
+  });
+
+  let popup_note = $(".note_popup");
+
+  $(document).on("click", ".tour-note-btn", function () {
+    popup_note.show("fast");
+    const id = $(this).attr("id");
+    $.ajax({
+      url:
+        surfiranDatePrice.site_route +
+        `/wp-json/dateandprice/v1/tables?row_id=${id}`,
+      method: "GET",
+      success: function (data) {
+        console.log(data);
+      },
+      error: function (err) {
+        console.log(err.responseText);
+      },
+    });
+    // $(".view_and_edit").append(popup_note);
+  });
+
+  $(document).on("click", ".close_note_popup", function () {
+    popup_note.hide("fast");
+  });
+
+  $(this).on("click", function (e) {
+    if (
+      e.target.outerHTML ==
+      '<span class="dashicons dashicons-admin-generic"></span>'
+    ) {
+      return false;
+    } else {
+      $(document).find(".options_tab").hide();
+    }
   });
 
   $(document).on("submit", "#table-form-php", function (event) {

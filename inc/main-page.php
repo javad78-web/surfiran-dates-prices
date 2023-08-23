@@ -94,6 +94,23 @@ $exist_tables = array_unique($tablename);
                         </div>
                     </div>
                 </div>
+                <div class="note_popup" style="display: none;">
+                    <div class="container_note_popup">
+                        <div class="header_note_popup">
+                            <div class="close_note_popup">
+                                <span class="dashicons dashicons-no"></span>
+                            </div>
+                        </div>
+                        <div class="main_note_popup">
+                            <?php global $editor_value; ?>
+                            <?php wp_editor($editor_value, 'note_content'); ?>
+                            <div class="note_content"><?php echo $editor_value; ?></div>
+                        </div>
+                        <div class="footer_note_popup">
+                            <button class="btn btn-success submit-form" type="submit">Save Note</button>
+                        </div>
+                    </div>
+                </div>
                 <div class="submit-form-btn">
                     <button class="btn btn-primary submit-form" type="submit">Save Changes</button>
                     <button class="btn btn-success add-row" type="button">Add Row</button>
