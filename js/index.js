@@ -344,6 +344,10 @@ jQuery(document).ready(function ($) {
                       <button type="button" name="delete_row" class="surf-custom-btn delete-btn delete_row" id=${row.id}>Delete</button>
                      </div>`;
           output +=
+            '<input type="hidden" name="hidden_tournote[]" id="tournote" class="tournote" value="' +
+            row.date_note +
+            '" />';
+          output +=
             '<input type="hidden" name="hidden_tablename[]" id="tablename" class="tablename" value="' +
             row.tablename +
             '" />';
@@ -428,21 +432,33 @@ jQuery(document).ready(function ($) {
   let popup_note = $(".note_popup");
 
   $(document).on("click", ".tour-note-btn", function () {
-    popup_note.show("fast");
+    const mainNotePopup = $(".main_note_popup");
+    const textEditor = mainNotePopup.children()[0];
+    const textEditorID = $(textEditor).attr("id");
+    const noteHTML = $(textEditor).find("iframe").contents();
+    const textArea = noteHTML.find("#tinymce");
     const id = $(this).attr("id");
-    $.ajax({
-      url:
-        surfiranDatePrice.site_route +
-        `/wp-json/dateandprice/v1/tables?row_id=${id}`,
-      method: "GET",
-      success: function (data) {
-        console.log(data);
-      },
-      error: function (err) {
+    const newID = $(textEditor).attr("id", `wp-note-content-${id}-wrap`);
+    // if (!/\d/.test(textEditorID) || textEditorID.match(/\d+/)[0] != id) {
+    //   $(textEditor).attr("id", newID);
+    // }
+    $.get(
+      `${surfiranDatePrice.site_route}/wp-json/dateandprice/v1/tables?row_id=${id}`
+      )
+      .done(function (data) {
+        // btoa()
+        // atob()
+        popup_note.show("fast");
+        data.map((row) => {
+          textArea.html(row.date_note);
+
+          $('.note_content').val(textArea.html())
+
+        });
+      })
+      .fail(function (err) {
         console.log(err.responseText);
-      },
-    });
-    // $(".view_and_edit").append(popup_note);
+      });
   });
 
   $(document).on("click", ".close_note_popup", function () {

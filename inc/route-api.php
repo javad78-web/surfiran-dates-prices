@@ -138,20 +138,25 @@ function get_surfiran_api_callback($data)
 
     if (isset($params['table_id'])) {
 
-        $table_id = sanitize_text_field($params['table_id']);
+        $table_id = $params['table_id'];
 
-        $query = "SELECT * FROM $tablename WHERE tablename= '$table_id' ORDER BY position ASC";
+        $query = "SELECT * FROM $tablename WHERE tablename= %s ORDER BY position ASC";
+
+        $prepare = $wpdb->prepare($query, $table_id);
     } elseif (isset($params['row_id'])) {
 
-        $row_id = sanitize_text_field($params['row_id']);
+        $row_id = $params['row_id'];
 
-        $query = "SELECT * FROM $tablename WHERE id= $row_id";
+        $query = "SELECT date_note FROM $tablename WHERE id= %d";
+
+        $prepare = $wpdb->prepare($query, $row_id);
     } else {
 
         $query = "SELECT * FROM $tablename";
+
+        $prepare = $query;
     }
 
-    $prepare = $wpdb->prepare($query);
 
     $result = $wpdb->get_results($prepare);
 

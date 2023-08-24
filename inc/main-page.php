@@ -6,6 +6,7 @@ $tablename = $wpdb->prefix . 'tables';
 
 $query = "SELECT tablename FROM $tablename";
 
+
 $result = $wpdb->get_results($wpdb->prepare($query));
 
 // var_dump($result);
@@ -103,8 +104,8 @@ $exist_tables = array_unique($tablename);
                         </div>
                         <div class="main_note_popup">
                             <?php global $editor_value; ?>
-                            <?php wp_editor($editor_value, 'note_content'); ?>
-                            <div class="note_content"><?php echo $editor_value; ?></div>
+                            <?php wp_editor($editor_value , 'note-content'); ?>
+                            <input type="text" class="note_content"></div>
                         </div>
                         <div class="footer_note_popup">
                             <button class="btn btn-success submit-form" type="submit">Save Note</button>
