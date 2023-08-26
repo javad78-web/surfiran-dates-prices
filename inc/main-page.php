@@ -59,6 +59,13 @@ $exist_tables = array_unique($tablename);
 </div>
 
 <div class="view_and_edit">
+    <div class="note_load_overlay">
+        <div class="spinner_local">
+            <div class="spinner-border text-info" role="status">
+                <span class="sr-only"></span>
+            </div>
+        </div>
+    </div>
     <div class="header-container">
         <div class="close-modal">
             <span class="dashicons dashicons-no close-btn"></span>

@@ -133,6 +133,10 @@ class TourDate
         wp_enqueue_script('jqueryconfirmscript');
         wp_enqueue_style('mainstyle', plugin_dir_url(__FILE__) . 'css/main.css');
         wp_enqueue_style('wp-editor');
+
+        add_filter('mce_buttons', [$this, 'customize_editor_toolbar']);
+        // add_filter('mce_buttons_2', [$this, 'customize_tinymce_init']);
+
         wp_enqueue_style('custom-editor-styles', plugin_dir_url(__FILE__) . 'css/custom-editor-styles.css');
         wp_enqueue_script('mainscript', plugin_dir_url(__FILE__) . 'js/index.js', ['jqueryuiscriptMain']);
         wp_enqueue_script('wp-editor');
@@ -141,6 +145,25 @@ class TourDate
         wp_localize_script('mainscript', 'surfiranDatePrice', [
             'site_route' => site_url()
         ]);
+    }
+
+    // Customize the TinyMCE initialization settings
+    // function customize_tinymce_init($buttons)
+    // {
+    //     // var_dump($buttons);
+    //     // Remove the full-screen tool from the toolbar
+    //     $fullscreen_key = array_search('fullscreen', $buttons);
+    //     var_dump($fullscreen_key);
+    //     // if ($fullscreen_key !== false) {
+    //     //     unset($buttons[$fullscreen_key]);
+    //     // }
+    //     // return $buttons;
+    // }
+    function customize_editor_toolbar($buttons)
+    {
+        // Add font size selector to the toolbar
+        $buttons[] = 'fontsizeselect';
+        return $buttons;
     }
 
     function load_sub_scripts()

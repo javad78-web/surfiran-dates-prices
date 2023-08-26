@@ -24,7 +24,7 @@ $number = new NumberFormatter('en-EUR', NumberFormatter::DEFAULT_STYLE);
                             <div class="table_item_header">Start Date</div>
                             <div class="table_item_content"><?php echo $value->startdate; ?></div>
                         </div>
-						<div class="arrow_icon_dateandprice"></div>
+                        <div class="arrow_icon_dateandprice"></div>
                         <div class="dateprice_table_item align_end_respons">
                             <div class="table_item_header">End Date</div>
                             <div class="table_item_content"><?php echo $value->enddate; ?></div>
@@ -54,7 +54,7 @@ $number = new NumberFormatter('en-EUR', NumberFormatter::DEFAULT_STYLE);
                         <div class="dateprice_table_item align_end_respons">
                             <div class="table_item_header">Price</div>
                             <div class="table_item_content respons_price">
-                                <?php echo "€" . $number->format($value->price) . " EUR"; ?>
+                                <?php echo !empty($value->sale_price) ? "€" . $number->format($value->sale_price) . " EUR" : "€" . $number->format($value->price) . " EUR"; ?>
                             </div>
                         </div>
                         <div class="surfiran_toggle_icon">
@@ -63,8 +63,11 @@ $number = new NumberFormatter('en-EUR', NumberFormatter::DEFAULT_STYLE);
                     </div>
 
                     <div class="row_expand" id="<?php echo $value->id; ?>">
+                        <div class="tour_note">
+                            <?php echo base64_decode(str_replace("/", "", $value->date_note)) ?>
+                        </div>
                         <div class="tour_detail">
-                            <div class="tour_detail_price"><strong><?php echo "€" . $number->format($value->price) . " EUR";  ?></strong></div>
+                            <div class="tour_detail_price"><strong <?php echo !empty($value->sale_price) ? "class='have_sale'" : "" ?>><?php echo "€" . $number->format($value->price) . " EUR";  ?></strong><?php echo !empty($value->sale_price) ? "<strong> € " . $number->format($value->sale_price) . " EUR</strong>" : "" ?></div>
                             <div class="tour_detail_desc">per adult in a twin share room</div>
                             <div class="tour_detail_singleprice">Want your own room ?<strong style="margin-left: 5px;"> <?php echo " €" . $number->format($value->singleprice) . " EUR"; ?></strong></div>
                         </div>

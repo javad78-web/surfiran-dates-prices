@@ -258,8 +258,27 @@ strong {
   width: 100%;
 }
 
+.have_sale {
+  font-size: 18px;
+  margin-right: 17px;
+  text-decoration-line: line-through;
+  opacity: 0.6;
+}
+
+.tour_note {
+  width: 200%;
+  height: 110px;
+  border-radius: 3px 0px 0px 3px;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  padding: 0px 10px 0px 10px;
+  border-right: 2px solid black;
+  text-align: justify;
+}
+
 @media all and (max-width: 865px) {
-   .arrow_icon_dateandprice {
+  .arrow_icon_dateandprice {
     display: flex;
   }
 
@@ -356,13 +375,13 @@ strong {
     padding: 6px;
     font-size: 15px;
     border-radius: 6px;
-	height: 36px;
+    height: 36px;
   }
 
   .align_margin_set {
     margin-left: -5px;
   }
-	
+
   .respons_price {
     font-size: 17px;
   }

@@ -344,7 +344,13 @@ jQuery(document).ready(function ($) {
                       <button type="button" name="tour_note" class="surf-custom-btn tour-note-btn" id=${row.id}>Note</button>
                       <button type="button" name="delete_row" class="surf-custom-btn delete-btn delete_row" id=${row.id}>Delete</button>
                      </div>`;
-          output += `<input type="text" name="hidden_tournote[]" id="tournote" row_id=${row.id} class="tournote" value=${row.date_note == "" ? "PHA+PGJyIGRhdGEtbWNlLWJvZ3VzPSIxIj48L3A+" : row.date_note}/>`;
+          output += `<input type="hidden" name="hidden_tournote[]" id="tournote" row_id=${
+            row.id
+          } class="tournote" value=${
+            row.date_note == ""
+              ? "PHA+PGJyIGRhdGEtbWNlLWJvZ3VzPSIxIj48L3A+"
+              : row.date_note
+          }/>`;
           output +=
             '<input type="hidden" name="hidden_tablename[]" id="tablename" class="tablename" value="' +
             row.tablename +
@@ -434,6 +440,7 @@ jQuery(document).ready(function ($) {
 
   $(document).on("click", ".tour-note-btn", function () {
     mainNotePopup = $(".main_note_popup");
+    $(".note_load_overlay").css("display", "flex");
     const textEditor = mainNotePopup.children()[0];
     const textEditorID = $(textEditor).attr("id");
     const noteHTML = $(textEditor).find("iframe").contents();
@@ -452,11 +459,11 @@ jQuery(document).ready(function ($) {
       `${surfiranDatePrice.site_route}/wp-json/dateandprice/v1/tables?row_id=${note_row_id}`
     )
       .done(function (data) {
+        $(".note_load_overlay").css("display", "none");
         let decodeHTML;
         const tournote_value = $(`.tournote[row_id = ${note_row_id}]`).val();
-        if (tournote_value.at(-1) === "/") {
-          fixed_html = tournote_value.replace(tournote_value.at(-1), "");
-          decodeHTML = atob(fixed_html);
+        if (tournote_value.includes("/")) {
+          decodeHTML = atob(tournote_value.replaceAll("/", ""));
         } else {
           decodeHTML = atob(tournote_value);
         }
@@ -471,14 +478,19 @@ jQuery(document).ready(function ($) {
   });
 
   $(document).on("click", ".submit-note", function () {
-    encodeCode = textArea.html().replace(/[\uFEFF]/g, '');
-    const encodeHTML = btoa(encodeCode);
-    $(".tournote").each(function () {
-      tournote_row_id = $(this).attr("row_id");
-      tournote_row_id === mainNotePopup.attr("id")
-        ? $(this).val(encodeHTML)
-        : false;
-    });
+    try {
+      encodeCode = textArea.html().replace(/[\uFEFF]/g, "");
+      const encodeHTML = btoa(encodeCode);
+      $(".tournote").each(function () {
+        tournote_row_id = $(this).attr("row_id");
+        tournote_row_id === mainNotePopup.attr("id")
+          ? $(this).val(encodeHTML)
+          : false;
+        $(".note_popup").hide();
+      });
+    } catch (e) {
+      console.log(e.responseText);
+    }
   });
 
   $(document).on("click", ".close_note_popup", function () {
@@ -532,12 +544,12 @@ jQuery(document).ready(function ($) {
                         </div>
                         <div class="table-body-container">
                             <div class="main_overlay">
-        						<div class="spinner_local">
-        							<div class="spinner-border text-info" role="status">
-        								<span class="sr-only"></span>
-        							</div>
-        						</div>
-							</div>
+                                <div class="spinner_local">
+                                  <div class="spinner-border text-info" role="status">
+                                    <span class="sr-only"></span>
+                                  </div>
+                                </div>
+                          </div>
                         </div> `;
             $("#edit_table").html(output);
           }, 500);
