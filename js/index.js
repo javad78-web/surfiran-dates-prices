@@ -261,6 +261,7 @@ jQuery(document).ready(function ($) {
   $(".btn-edit").click(function () {
     const id = $(this).attr("id");
     $(".main_overlay").css("display", "flex");
+    $(".submit");
     $.ajax({
       url:
         surfiranDatePrice.site_route +
@@ -343,10 +344,7 @@ jQuery(document).ready(function ($) {
                       <button type="button" name="tour_note" class="surf-custom-btn tour-note-btn" id=${row.id}>Note</button>
                       <button type="button" name="delete_row" class="surf-custom-btn delete-btn delete_row" id=${row.id}>Delete</button>
                      </div>`;
-          output +=
-            '<input type="hidden" name="hidden_tournote[]" id="tournote" class="tournote" value="' +
-            row.date_note +
-            '" />';
+          output += `<input type="text" name="hidden_tournote[]" id="tournote" row_id=${row.id} class="tournote" value=${row.date_note == "" ? "PHA+PGJyIGRhdGEtbWNlLWJvZ3VzPSIxIj48L3A+" : row.date_note}/>`;
           output +=
             '<input type="hidden" name="hidden_tablename[]" id="tablename" class="tablename" value="' +
             row.tablename +
@@ -430,35 +428,57 @@ jQuery(document).ready(function ($) {
   });
 
   let popup_note = $(".note_popup");
+  let textArea;
+  let note_row_id;
+  let mainNotePopup;
 
   $(document).on("click", ".tour-note-btn", function () {
-    const mainNotePopup = $(".main_note_popup");
+    mainNotePopup = $(".main_note_popup");
     const textEditor = mainNotePopup.children()[0];
     const textEditorID = $(textEditor).attr("id");
     const noteHTML = $(textEditor).find("iframe").contents();
-    const textArea = noteHTML.find("#tinymce");
-    const id = $(this).attr("id");
-    const newID = $(textEditor).attr("id", `wp-note-content-${id}-wrap`);
+    textArea = noteHTML.find("#tinymce");
+    note_row_id = $(this).attr("id");
+    mainNotePopup.attr("id", note_row_id);
+    const newID = $(textEditor).attr(
+      "id",
+      `wp-note-content-${note_row_id}-wrap`
+    );
     // if (!/\d/.test(textEditorID) || textEditorID.match(/\d+/)[0] != id) {
     //   $(textEditor).attr("id", newID);
     // }
+
     $.get(
-      `${surfiranDatePrice.site_route}/wp-json/dateandprice/v1/tables?row_id=${id}`
-      )
+      `${surfiranDatePrice.site_route}/wp-json/dateandprice/v1/tables?row_id=${note_row_id}`
+    )
       .done(function (data) {
-        // btoa()
-        // atob()
+        let decodeHTML;
+        const tournote_value = $(`.tournote[row_id = ${note_row_id}]`).val();
+        if (tournote_value.at(-1) === "/") {
+          fixed_html = tournote_value.replace(tournote_value.at(-1), "");
+          decodeHTML = atob(fixed_html);
+        } else {
+          decodeHTML = atob(tournote_value);
+        }
         popup_note.show("fast");
         data.map((row) => {
-          textArea.html(row.date_note);
-
-          $('.note_content').val(textArea.html())
-
+          textArea.html(decodeHTML);
         });
       })
       .fail(function (err) {
         console.log(err.responseText);
       });
+  });
+
+  $(document).on("click", ".submit-note", function () {
+    encodeCode = textArea.html().replace(/[\uFEFF]/g, '');
+    const encodeHTML = btoa(encodeCode);
+    $(".tournote").each(function () {
+      tournote_row_id = $(this).attr("row_id");
+      tournote_row_id === mainNotePopup.attr("id")
+        ? $(this).val(encodeHTML)
+        : false;
+    });
   });
 
   $(document).on("click", ".close_note_popup", function () {

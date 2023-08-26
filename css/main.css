@@ -300,7 +300,7 @@ body {
 
 .submit-form-btn {
   display: flex;
-  width: 100%;
+  width: 98%;
   margin: 10px;
   justify-content: space-between;
 }
@@ -418,7 +418,8 @@ body {
   padding: 20px;
   border-radius: 5px;
   display: flex;
-  width: 50%;
+  width: 60%;
+  height: 75%;
   flex-direction: column;
   top: 90px;
 }
@@ -427,7 +428,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 290px;
+  height: 100%;
 }
 
 .header_note_popup {
@@ -438,7 +439,7 @@ body {
 .close_note_popup > span {
   font-size: 25px;
   cursor: pointer;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .close_note_popup > span:hover {

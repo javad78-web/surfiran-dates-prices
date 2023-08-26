@@ -95,29 +95,27 @@ $exist_tables = array_unique($tablename);
                         </div>
                     </div>
                 </div>
-                <div class="note_popup" style="display: none;">
-                    <div class="container_note_popup">
-                        <div class="header_note_popup">
-                            <div class="close_note_popup">
-                                <span class="dashicons dashicons-no"></span>
-                            </div>
-                        </div>
-                        <div class="main_note_popup">
-                            <?php global $editor_value; ?>
-                            <?php wp_editor($editor_value , 'note-content'); ?>
-                            <input type="text" class="note_content"></div>
-                        </div>
-                        <div class="footer_note_popup">
-                            <button class="btn btn-success submit-form" type="submit">Save Note</button>
-                        </div>
-                    </div>
-                </div>
                 <div class="submit-form-btn">
                     <button class="btn btn-primary submit-form" type="submit">Save Changes</button>
                     <button class="btn btn-success add-row" type="button">Add Row</button>
                 </div>
             </form>
-
+            <div class="note_popup" style="display: none;">
+                <div class="container_note_popup">
+                    <div class="header_note_popup">
+                        <div class="close_note_popup">
+                            <span class="dashicons dashicons-no"></span>
+                        </div>
+                    </div>
+                    <div class="main_note_popup">
+                        <?php global $editor_value; ?>
+                        <?php wp_editor($editor_value, 'note-content', []); ?>
+                    </div>
+                    <div class="footer_note_popup">
+                        <button class="btn btn-success submit-note" type="submit">Save Note</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
