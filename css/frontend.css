@@ -273,10 +273,11 @@ strong {
   display: flex;
   justify-content: start;
   align-items: start;
-  padding: 0px 10px 0px 10px;
+  padding: 5px 10px 0px 10px;
   border-right: 2px solid black;
   text-align: justify;
   overflow-y: auto;
+  flex-direction: column;
 }
 
 .sale_icon {
