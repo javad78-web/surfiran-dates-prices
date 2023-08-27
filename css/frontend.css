@@ -267,7 +267,7 @@ strong {
 }
 
 .tour_note {
-  width: 200%;
+  width: 100%;
   height: 110px;
   border-radius: 3px 0px 0px 3px;
   display: flex;
@@ -294,7 +294,7 @@ strong {
   content: none;
 }
 
-@media all and (min-width: 866px) and (max-width: 1058px) {
+@media all and (min-width: 866px) and (max-width: 1112px) {
   .tour_note {
     width: 100%;
   }
