@@ -296,11 +296,12 @@ strong {
 
 @media all and (min-width: 866px) and (max-width: 1481px) {
   .tour_note {
-    width: 100%;
-    border: 2px solid #000;
+    width: 95%;
+    border: none;
     flex-direction: column;
-    border-radius: 20px;
+    border-radius: 10px;
     margin-bottom: 20px;
+    box-shadow: 0 0 2px #8a8a8a;
   }
   
   .row_expand {
@@ -311,7 +312,8 @@ strong {
   }
   .tour_request_form {
     width: 95%;
-    margin-right: none;
+    margin-right: 0;
+    margin-bottom: 15px;
   }
 }
 
@@ -325,6 +327,7 @@ strong {
     box-shadow: 0 0 2px #8a8a8a;
     margin: 10px 0px 10px 0px;
     border-radius: 10px;
+    border: none;
   }
 
   .dateprice_table_row {
