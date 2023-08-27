@@ -227,7 +227,6 @@ jQuery(document).ready(function ($) {
     output +=
       '<div class="table-body-item options_btn"><div class="btn_option_tab"><span class="dashicons dashicons-admin-generic"></span></div></div>';
     output += `<div class="options_tab" style="display: none;">
-                  <button type="button" name="tour_note" class="surf-custom-btn tour-note-btn">Note</button>
                   <button type="button" name="delete_row" class="surf-custom-btn delete-btn delete_row">Delete</button>
                </div>`;
     output +=
@@ -344,13 +343,7 @@ jQuery(document).ready(function ($) {
                       <button type="button" name="tour_note" class="surf-custom-btn tour-note-btn" id=${row.id}>Note</button>
                       <button type="button" name="delete_row" class="surf-custom-btn delete-btn delete_row" id=${row.id}>Delete</button>
                      </div>`;
-          output += `<input type="hidden" name="hidden_tournote[]" id="tournote" row_id=${
-            row.id
-          } class="tournote" value=${
-            row.date_note == ""
-              ? "PHA+PGJyIGRhdGEtbWNlLWJvZ3VzPSIxIj48L3A+"
-              : row.date_note
-          }/>`;
+          output += `<input type="hidden" name="hidden_tournote[]" id="tournote" row_id=${row.id} class="tournote" value=${row.date_note}>`;
           output +=
             '<input type="hidden" name="hidden_tablename[]" id="tablename" class="tablename" value="' +
             row.tablename +

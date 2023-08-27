@@ -259,10 +259,11 @@ strong {
 }
 
 .have_sale {
-  font-size: 18px;
+  font-size: 16px;
   margin-right: 17px;
   text-decoration-line: line-through;
   opacity: 0.6;
+  text-decoration-thickness: 2px;
 }
 
 .tour_note {
@@ -275,11 +276,39 @@ strong {
   padding: 0px 10px 0px 10px;
   border-right: 2px solid black;
   text-align: justify;
+  overflow-y: auto;
+}
+
+.sale_icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(63%);
+  fill: #eb0000;
+  filter: drop-shadow(2px 1px 1px #ff5959);
+  margin-top: 2px;
+}
+
+.no-before::before {
+  content: none;
+}
+
+@media all and (min-width: 866px) and (max-width: 1058px) {
+  .tour_note {
+    width: 124%;
+  }
 }
 
 @media all and (max-width: 865px) {
   .arrow_icon_dateandprice {
     display: flex;
+  }
+
+  .tour_note {
+    width: 93%;
+    box-shadow: 0 0 2px #8a8a8a;
+    margin: 10px 0px 10px 0px;
+    border-radius: 10px;
   }
 
   .dateprice_table_row {

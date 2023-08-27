@@ -61,7 +61,6 @@ function update_surfiran_api_callback($data)
         $single_price = sanitize_text_field($params['singleprice'][$i]);
         $sale_price = sanitize_text_field($params['saleprice'][$i]);
         $tour_status = sanitize_text_field($params['tourstatus'][$i]);
-        $tour_note = sanitize_text_field($params['hidden_tournote'][$i]);
         $form_tablename = sanitize_text_field($params['hidden_tablename'][$i]);
         $position = sanitize_text_field($params['hidden_position'][$i]);
 
@@ -73,7 +72,7 @@ function update_surfiran_api_callback($data)
             'sale_price'    =>  $sale_price,
             'tourstatus'    =>  $tour_status,
             'tablename'     =>  $form_tablename,
-            'date_note'     =>  $tour_note,
+            'date_note'     =>  isset($params['hidden_tournote'][$i]) ? sanitize_text_field($params['hidden_tournote'][$i]) : "",
             'position'      =>  $position,
         ];
 
