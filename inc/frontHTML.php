@@ -76,7 +76,7 @@ width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"
                             </div>
                         </div>
                         <div class="surfiran_toggle_icon">
-                            <span class="dashicons dashicons-arrow-down" style="margin-left: -25px; color: black;"></span>
+                            <span class="dashicons dashicons-arrow-down" style="color: black;"></span>
                         </div>
                     </div>
 
