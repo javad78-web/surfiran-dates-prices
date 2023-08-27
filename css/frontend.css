@@ -300,7 +300,6 @@ strong {
   }
   
   .row_expand {
-    display: flex;
     flex-direction: column;
   }
   .tour_detail {
