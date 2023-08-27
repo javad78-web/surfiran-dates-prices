@@ -294,11 +294,19 @@ strong {
   content: none;
 }
 
-/* @media all and (min-width: 866px) and (max-width: 1058px) {
+@media all and (min-width: 866px) and (max-width: 1058px) {
   .tour_note {
-    width: 124%;
+    width: 100%;
   }
-} */
+  
+  .row_expand {
+    display: flex;
+    flex-direction: column;
+  }
+  .tour_detail {
+    order: -1;
+  }
+}
 
 @media all and (max-width: 865px) {
   .arrow_icon_dateandprice {
@@ -329,7 +337,7 @@ strong {
 
   .row_expand {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     box-shadow: none;
     background-color: #f9fcff;
     margin: 0;
