@@ -294,11 +294,11 @@ strong {
   content: none;
 }
 
-@media all and (min-width: 866px) and (max-width: 1058px) {
+/* @media all and (min-width: 866px) and (max-width: 1058px) {
   .tour_note {
     width: 124%;
   }
-}
+} */
 
 @media all and (max-width: 865px) {
   .arrow_icon_dateandprice {
@@ -329,7 +329,7 @@ strong {
 
   .row_expand {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     box-shadow: none;
     background-color: #f9fcff;
     margin: 0;
