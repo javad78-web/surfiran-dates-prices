@@ -297,6 +297,10 @@ strong {
 @media all and (min-width: 866px) and (max-width: 1481px) {
   .tour_note {
     width: 100%;
+    border: 2px solid #000;
+    flex-direction: column;
+    border-radius: 20px;
+    margin-bottom: 20px;
   }
   
   .row_expand {
@@ -304,6 +308,10 @@ strong {
   }
   .tour_detail {
     order: -1;
+  }
+  .tour_request_form {
+    width: 95%;
+    margin-right: none;
   }
 }
 
