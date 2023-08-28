@@ -280,6 +280,15 @@ strong {
   flex-direction: column;
 }
 
+.tour_note > h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 2px 0px;
+}
+
 .sale_icon {
   display: flex;
   justify-content: center;
@@ -303,7 +312,7 @@ strong {
     margin-bottom: 20px;
     box-shadow: 0 0 2px #8a8a8a;
   }
-  
+
   .row_expand {
     flex-direction: column;
   }
