@@ -278,6 +278,31 @@ strong {
   text-align: justify;
   overflow-y: auto;
   flex-direction: column;
+  line-height: 18px;
+}
+
+.tour_note h1 {
+  font-size: 30px !important;
+}
+
+.tour_note h2 {
+  font-size: 27px !important;
+}
+
+.tour_note h3 {
+  font-size: 24px !important;
+}
+
+.tour_note h4 {
+  font-size: 21px !important;
+}
+
+.tour_note h5 {
+  font-size: 18px !important;
+}
+
+.tour_note h6 {
+  font-size: 15px !important;
 }
 
 .tour_note > h1,
@@ -287,6 +312,10 @@ h4,
 h5,
 h6 {
   margin: 2px 0px;
+}
+
+.tour_note > p {
+  margin: 5px 0;
 }
 
 .sale_icon {
