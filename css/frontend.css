@@ -305,15 +305,6 @@ strong {
   font-size: 15px !important;
 }
 
-.tour_note > h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 2px 0px;
-}
-
 .tour_note > p {
   margin: 5px 0;
 }
