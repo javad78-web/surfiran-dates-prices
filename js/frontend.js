@@ -64,15 +64,28 @@ jQuery(document).ready(function ($) {
       return;
     }
 
+    $(this).find(".dashicons-arrow-down").css({ color: "white" });
+
     // let row_id = $(this).attr('id');
     let expand_id = $(this).find(".row_expand");
 
     if (expand_id.css("display") == "none") {
-      $(".row_expand").slideUp();
-      $(".toggle_icon span").removeClass("dashicons-arrow-up");
+      $(".row_card_items").css({
+        "background-color": "#f0f7ff69",
+        color: "#222",
+      });
+
+      $(".dashicons-arrow-down").css({ color: "#222" });
+
+      $(this).find(".row_card_items").css({
+        "background-color": "rgb(46, 46, 46)",
+        color: "#fff",
+      });
+      $(this).find(".dashicons-arrow-down").css({ color: "white" });
+
+      $(".row_expand").slideUp("fast");
+      $(".surfiran_toggle_icon span").removeClass("dashicons-arrow-up");
       $(this).find("span").addClass("dashicons-arrow-up");
-      // expand_id.slideDown();
-      // expand_id.css('display' , 'flex');
 
       // Can use Animate instead of slideUp or slideDown
       expand_id
@@ -80,23 +93,19 @@ jQuery(document).ready(function ($) {
           display: "flex",
           opacity: 0,
         })
-        .animate(
-          {
-            opacity: 1,
-          },
-          1000
-        );
+        .animate({
+          opacity: 1,
+        });
     } else {
-      expand_id.slideUp();
+      expand_id.slideUp("fast");
       setTimeout(() => {
         $(this).find("span").removeClass("dashicons-arrow-up");
+        $(this).find(".dashicons-arrow-down").css({ color: "#222" });
+        $(this).find(".row_card_items").css({
+          "background-color": "#f0f7ff69",
+          color: "#222",
+        });
       }, 200);
-
-      // expand_id.animate({
-      //     'opacity': 0
-      // }, 500, function () {
-      //     expand_id.css('display', 'none');
-      // });
     }
   });
 

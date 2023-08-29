@@ -57,6 +57,7 @@
   align-items: center;
   flex-direction: column;
   padding: 7px 0 0 0;
+  color: #222;
 }
 
 .row_card_items {
@@ -73,7 +74,7 @@
 }
 
 .row_card_items:hover {
-  background-color: #aae5fd33;
+  background-color: #efefef;
 }
 
 .dateprice_table_item {
@@ -258,7 +259,7 @@ strong {
   width: 100%;
 }
 
-.have_sale {
+.expand_have_sale {
   font-size: 16px;
   margin-right: 17px;
   text-decoration-line: line-through;
@@ -325,11 +326,34 @@ h6 {
   transform: scale(63%);
   fill: #eb0000;
   filter: drop-shadow(2px 1px 1px #ff5959);
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 .no-before::before {
   content: none;
+}
+
+.surfiran_toggle_icon {
+  position: absolute;
+  right: 10px;
+}
+
+.status_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: -5px;
+}
+
+.have_sale {
+  display: none;
+}
+
+.sale_price {
+  display: flex;
+  color: #eb0000;
+  justify-content: center;
+  align-items: center;
 }
 
 @media all and (min-width: 866px) and (max-width: 1481px) {
@@ -358,6 +382,22 @@ h6 {
 @media all and (max-width: 865px) {
   .arrow_icon_dateandprice {
     display: flex;
+  }
+
+  .have_sale {
+    font-size: 15px;
+    text-decoration-line: line-through;
+    opacity: 0.6;
+    text-decoration-thickness: 2px;
+    display: flex;
+  }
+
+  .sale_price {
+    display: flex;
+    color: #eb0000;
+    font-size: 16px;
+    justify-content: center;
+    align-items: center;
   }
 
   .tour_note {
@@ -470,6 +510,11 @@ h6 {
 
   .respons_price {
     font-size: 17px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    gap: 5px;
   }
 
   .status_header_reponse {

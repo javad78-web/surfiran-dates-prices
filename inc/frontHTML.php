@@ -19,7 +19,6 @@ width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"
 </g>
 <rect x="-0.0136" y="0.0001" fill="none" width="24" height="24"/>
 </svg>';
-
 ?>
 
 <div class="dateprice_container" id="datesandprices">
@@ -52,10 +51,10 @@ width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"
                             <div class="table_item_content">
                                 <?php switch ($value->tourstatus) {
                                     case 'available':
-                                        echo "<div class='status_icon_dateandprice_available'></div><div style='color: #00c853;'>Available</div>";
+                                        echo "<div class='status_container' style='color: #00c853;'><div class='status_icon_dateandprice_available'></div>Available</div>";
                                         break;
                                     case 'guaranteed':
-                                        echo "<div class='status_icon_dateandprice_guaranteed'></div><div style='color: #f1592a;'>Guaranteed</div>";
+                                        echo "<div class='status_container' style='color: #f1592a;'><div class='status_icon_dateandprice_guaranteed'></div>Guaranteed</div>";
                                         break;
                                     case 'fillingfast':
                                         echo "Filling Fast";
@@ -71,12 +70,19 @@ width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"
                         </div>
                         <div class="dateprice_table_item align_end_respons">
                             <div class="table_item_header">Price</div>
-                            <div class="table_item_content respons_price" <?php echo !empty($value->sale_price) ? "style='color:#EB0000'" : "" ?>>
-                                <?php echo !empty($value->sale_price) ? "<div class='sale_icon'>" . $sale_price_svg . "</div> €" . $number->format($value->sale_price) . " EUR" : "€" . $number->format($value->price) . " EUR"; ?>
+                            <div class="table_item_content respons_price">
+                                <?php if (!empty($value->sale_price)) { ?>
+                                    <div class="sale_price">
+                                        <?php echo "<div class='sale_icon'>" . $sale_price_svg . "</div> €" . $number->format($value->sale_price) . " EUR" ?>
+                                    </div>
+                                <?php } ?>
+                                <div class="price <?php echo !empty($value->sale_price) ? "have_sale" : "" ?>" <?php echo !empty($value->sale_price) ? "style='margin-right: 0; font-size: 15px;'" : "" ?>>
+                                    <?php echo "€ " . $number->format($value->price) . " EUR" ?>
+                                </div>
                             </div>
                         </div>
                         <div class="surfiran_toggle_icon">
-                            <span class="dashicons dashicons-arrow-down" style="color: black;"></span>
+                            <span class="dashicons dashicons-arrow-down" style="color: #222;"></span>
                         </div>
                     </div>
 
@@ -87,7 +93,7 @@ width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"
                             </div>
                         <?php } ?>
                         <div class="tour_detail">
-                            <div class="tour_detail_price"><strong <?php echo !empty($value->sale_price) ? "class='have_sale'" : "" ?>><?php echo "€" . $number->format($value->price) . " EUR";  ?></strong><?php echo !empty($value->sale_price) ? "<strong style='color: #EB0000 !important; '> € " . $number->format($value->sale_price) . " EUR</strong>" : "" ?></div>
+                            <div class="tour_detail_price"><strong <?php echo !empty($value->sale_price) ? "class='expand_have_sale'" : "" ?>><?php echo "€" . $number->format($value->price) . " EUR";  ?></strong><?php echo !empty($value->sale_price) ? "<strong style='color: #EB0000 !important; '> € " . $number->format($value->sale_price) . " EUR</strong>" : "" ?></div>
                             <div class="tour_detail_desc">per adult in a twin share room</div>
                             <div class="tour_detail_singleprice">Want your own room ?<strong style="margin-left: 5px;"> <?php echo " €" . $number->format($value->singleprice) . " EUR"; ?></strong></div>
                         </div>

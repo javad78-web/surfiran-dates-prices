@@ -343,7 +343,13 @@ jQuery(document).ready(function ($) {
                       <button type="button" name="tour_note" class="surf-custom-btn tour-note-btn" id=${row.id}>Note</button>
                       <button type="button" name="delete_row" class="surf-custom-btn delete-btn delete_row" id=${row.id}>Delete</button>
                      </div>`;
-          output += `<input type="hidden" name="hidden_tournote[]" id="tournote" row_id=${row.id} class="tournote" value=${row.date_note}>`;
+          output += `<input type="hidden" name="hidden_tournote[]" id="tournote" row_id=${
+            row.id
+          } class="tournote" value=${
+            row.date_note == "PHA+PGJyIGRhdGEtbWNlLWJvZ3VzPSIxIj48L3A+"
+              ? ""
+              : row.date_note
+          }>`;
           output +=
             '<input type="hidden" name="hidden_tablename[]" id="tablename" class="tablename" value="' +
             row.tablename +
@@ -471,19 +477,24 @@ jQuery(document).ready(function ($) {
   });
 
   $(document).on("click", ".submit-note", function () {
-    try {
-      encodeCode = textArea.html().replace(/[\uFEFF]/g, "");
-      const encodeHTML = btoa(encodeCode);
-      $(".tournote").each(function () {
-        tournote_row_id = $(this).attr("row_id");
-        tournote_row_id === mainNotePopup.attr("id")
-          ? $(this).val(encodeHTML)
-          : false;
-        $(".note_popup").hide();
-      });
-    } catch (e) {
-      console.log(e.responseText);
-    }
+    encodeCode = textArea.html().replace(/[\uFEFF]/g, "");
+    const encodeHTML = btoa(encodeCode);
+
+    $(".tournote").each(function () {
+      tournote_row_id = $(this).attr("row_id");
+
+      if (tournote_row_id === mainNotePopup.attr("id")) {
+        if (encodeHTML == "PHA+PGJyIGRhdGEtbWNlLWJvZ3VzPSIxIj48L3A+") {
+          $(this).val("");
+        } else {
+          $(this).val(encodeHTML);
+        }
+      } else {
+        return false;
+      }
+
+      $(".note_popup").hide();
+    });
   });
 
   $(document).on("click", ".close_note_popup", function () {
