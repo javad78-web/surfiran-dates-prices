@@ -70,10 +70,7 @@ jQuery(document).ready(function ($) {
     let expand_id = $(this).find(".row_expand");
 
     if (expand_id.css("display") == "none") {
-      $(".row_card_items").css({
-        "background-color": "#f0f7ff69",
-        color: "#222",
-      });
+      $(".row_card_items").removeAttr("style");
 
       $(".dashicons-arrow-down").css({ color: "#222" });
 
@@ -101,10 +98,7 @@ jQuery(document).ready(function ($) {
       setTimeout(() => {
         $(this).find("span").removeClass("dashicons-arrow-up");
         $(this).find(".dashicons-arrow-down").css({ color: "#222" });
-        $(this).find(".row_card_items").css({
-          "background-color": "#f0f7ff69",
-          color: "#222",
-        });
+        $(".row_card_items").removeAttr("style");
       }, 200);
     }
   });
