@@ -67,12 +67,10 @@ jQuery(document).ready(function ($) {
 
     if (display_width < 865) {
       $(".row_expand").css("display") == "flex";
-      $(".tour_note").find("*").removeAttr("style");
-      $(".tour_note").css("fontSize", "13px");
       return;
     }
 
-    $(this).find(".dashicons-arrow-down").css({ color: "white" });
+    // $(this).find(".dashicons-arrow-down").css({ color: "white" });
 
     // let row_id = $(this).attr('id');
     let expand_id = $(this).find(".row_expand");
@@ -80,13 +78,13 @@ jQuery(document).ready(function ($) {
     if (expand_id.css("display") == "none") {
       $(".row_card_items").removeAttr("style");
 
-      $(".dashicons-arrow-down").css({ color: "#222" });
+      // $(".dashicons-arrow-down").css({ color: "#222" });
 
       $(this).find(".row_card_items").css({
-        "background-color": "rgb(46, 46, 46)",
-        color: "#fff",
+        "background-color": "#b7d6eb70",
+        color: "black",
       });
-      $(this).find(".dashicons-arrow-down").css({ color: "white" });
+      // $(this).find(".dashicons-arrow-down").css({ color: "white" });
 
       $(".row_expand").slideUp("fast");
       $(".surfiran_toggle_icon span").removeClass("dashicons-arrow-up");

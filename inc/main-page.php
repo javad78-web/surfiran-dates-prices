@@ -76,7 +76,7 @@ $exist_tables = array_unique($tablename);
             <div class="title"></div>
             <div class="tour_price_container">
                 <div class="header_tour_price">
-                    Add Prices For Tour<br />
+                    <h3>Add Prices For Tour</h3>
                     <small>The prices are shown only on the tour link everywhere it is used on the site, not on the table.</small>
                 </div>
                 <div class="body_tour_price">

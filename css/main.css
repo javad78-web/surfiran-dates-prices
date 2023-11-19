@@ -465,11 +465,11 @@ body {
 .tour_price_container {
   margin-left: 20px;
   margin-top: 24px;
-  background-color: #1d2327;
+  background-color: #b7d6eb;
   border-radius: 10px;
 }
 .header_tour_price {
-  color: white;
+  color: black;
   padding: 10px 20px;
 }
 .header_tour_price small {
@@ -488,5 +488,7 @@ body {
   border: 2px solid white;
   background-color: transparent;
   padding: 3px 12px;
-  margin-top: -6px;
+  margin-top: -3px;
+  color: black;
+  font-size: 13px;
 }
