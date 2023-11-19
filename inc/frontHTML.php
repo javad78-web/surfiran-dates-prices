@@ -76,7 +76,7 @@ width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"
                                         <?php echo "<div class='sale_icon'>" . $sale_price_svg . "</div> €" . $number->format($value->sale_price) . " EUR" ?>
                                     </div>
                                 <?php } ?>
-                                <div class="price <?php echo !empty($value->sale_price) ? "have_sale" : "" ?>" <?php echo !empty($value->sale_price) ? "style='margin-right: 0; font-size: 15px;'" : "" ?>>
+                                <div class="<?php echo !empty($value->sale_price) ? "have_sale" : "" ?>" <?php echo !empty($value->sale_price) ? "style='margin-right: 0; font-size: 15px;'" : "" ?>>
                                     <?php echo "€ " . $number->format($value->price) . " EUR" ?>
                                 </div>
                             </div>
