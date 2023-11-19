@@ -139,4 +139,6 @@ From Deep Deserts To Historical Cities => post-20783
 
 
 $("li.post-4647").find("span.price").html("PRICE");
-$("li.post-4647").find("span.onsale") -->
+$("li.post-4647").find("span.onsale") --
+>
+
