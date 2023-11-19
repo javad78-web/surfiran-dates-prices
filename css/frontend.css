@@ -346,7 +346,7 @@ h6 {
 }
 
 .have_sale {
-  display: none ;
+  display: none;
 }
 
 .sale_price {
@@ -522,6 +522,6 @@ h6 {
   }
 
   .tour_detail_extraprice {
-    margin-top: -21px;
+    font-size: 13px;
   }
 }
