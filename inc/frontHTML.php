@@ -131,7 +131,7 @@ $roundedPercentageOff = round($percentageOff);
 -->
 
 
-Iran 7 day tour => post-4647
+<!-- Iran 7 day tour => post-4647
 A 9-Day Adventure Tour of Iran Discover => post-8760
 Discover Iran in a 15-day tour => post-9419
 XPLORE IRAN ON A WOMEN ONLY TOUR => post-40564
@@ -139,4 +139,4 @@ From Deep Deserts To Historical Cities => post-20783
 
 
 $("li.post-4647").find("span.price").html("PRICE");
-$("li.post-4647").find("span.onsale")
+$("li.post-4647").find("span.onsale") -->
