@@ -70,21 +70,17 @@ jQuery(document).ready(function ($) {
       return;
     }
 
-    // $(this).find(".dashicons-arrow-down").css({ color: "white" });
-
     // let row_id = $(this).attr('id');
+
     let expand_id = $(this).find(".row_expand");
 
     if (expand_id.css("display") == "none") {
       $(".row_card_items").removeAttr("style");
 
-      // $(".dashicons-arrow-down").css({ color: "#222" });
-
       $(this).find(".row_card_items").css({
-        "background-color": "#b7d6eb70",
+        backgroundColor: "#b7d6eb70",
         color: "black",
       });
-      // $(this).find(".dashicons-arrow-down").css({ color: "white" });
 
       $(".row_expand").slideUp("fast");
       $(".surfiran_toggle_icon span").removeClass("dashicons-arrow-up");
