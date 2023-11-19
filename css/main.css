@@ -18,6 +18,9 @@ body {
   font-size: 28px;
   text-align: center;
   color: #1490ac;
+  font-weight: bolder;
+  text-shadow: 1px 2px 4px #868686;
+  -webkit-text-stroke: 0.6px white;
 }
 
 .item-list .table_name {
@@ -457,4 +460,33 @@ body {
   opacity: 0.4;
   z-index: 2;
   border-radius: 5px;
+}
+
+.tour_price_container {
+  margin-left: 20px;
+  margin-top: 24px;
+  background-color: #1d2327;
+  border-radius: 10px;
+}
+.header_tour_price {
+  color: white;
+  padding: 10px 20px;
+}
+.header_tour_price small {
+  font-size: 12px;
+}
+.body_tour_price {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 5px 20px;
+}
+.tour_price_form {
+  margin-bottom: 10px;
+}
+.tour_price_form button {
+  border: 2px solid white;
+  background-color: transparent;
+  padding: 3px 12px;
+  margin-top: -6px;
 }

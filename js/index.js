@@ -561,4 +561,34 @@ jQuery(document).ready(function ($) {
       },
     });
   });
+
+  $(document).on("submit", "#toure_price_form", function (event) {
+    event.preventDefault();
+    const tablename = $("#tablename").val();
+    form_data = $(this).serialize();
+    $.ajax({
+      url:
+        surfiranDatePrice.site_route + `/wp-json/dateandprice/v1/tables/prices`,
+      method: "POST",
+      data: {
+        form_data,
+        tablename,
+      },
+      success: function (data) {
+        console.log(data);
+      },
+      error: function (err) {
+        console.log(err.responseText);
+      },
+    }).done(function () {
+      $.alert({
+        title: "Updated",
+        content: "Tour Prices Successfully Changed &#128578;",
+        type: "green",
+        buttons: {
+          ok: function () {},
+        },
+      });
+    });
+  });
 });

@@ -74,6 +74,19 @@ $exist_tables = array_unique($tablename);
     <div class="body-container">
         <div class="body-header-container">
             <div class="title"></div>
+            <div class="tour_price_container">
+                <div class="header_tour_price">
+                    Add Prices For Tour<br />
+                    <small>The prices are shown only on the tour link everywhere it is used on the site, not on the table.</small>
+                </div>
+                <div class="body_tour_price">
+                    <form class="tour_price_form" id="toure_price_form" method="POST">
+                        <input type="text" name="tour_price" placeholder="Tour Price">
+                        <input type="text" name="sale_tour_price" placeholder="Sale Tour Price">
+                        <button type="submit" class="btn btn-dark">Save Prices</button>
+                    </form>
+                </div>
+            </div>
             <div class="desc__for_edit">
                 <!>Warning: Make sure to save and update the table after any changes in the table by clicking the <u>Save Changes</u> button.<!>
             </div>
@@ -82,6 +95,7 @@ $exist_tables = array_unique($tablename);
             <form class="form-container" method="POST" id="table-form-php">
                 <?php wp_nonce_field('wp_rest') ?>
                 <div class="table-container" id="edit_table">
+
                     <div class="table-header-container">
                         <div class="table-header-item"></div>
                         <div class="table-header-item">Start Date</div>

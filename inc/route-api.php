@@ -4,8 +4,17 @@ add_action('rest_api_init', 'get_date_surfiran_api');
 add_action('rest_api_init', 'post_date_surfiran_api');
 add_action('rest_api_init', 'delete_date_surfiran_api');
 add_action('rest_api_init', 'update_date_surfiran_api');
+add_action('rest_api_init', 'tour_prices_surfiran_api');
 
 
+
+function tour_prices_surfiran_api()
+{
+    register_rest_route('dateandprice/v1', 'tables/prices', [
+        'methods' => WP_REST_SERVER::ALLMETHODS,
+        'callback' => 'tour_prices_api_callback'
+    ]);
+}
 function update_date_surfiran_api()
 {
     register_rest_route('dateandprice/v1', 'tables/update', [
@@ -36,6 +45,33 @@ function post_date_surfiran_api()
     ]);
 }
 
+function tour_prices_api_callback($data)
+{
+    global $wpdb;
+    $tablename = $wpdb->prefix . "tables";
+    $getParams = $data->get_params();
+
+    parse_str($getParams["form_data"], $params);
+
+    $tourPrice = isset($params["tour_price"]) ? $params["tour_price"] : "";
+    $saleTourPrice = isset($params["sale_tour_price"]) ? $params["sale_tour_price"] : "";
+    $currentTableName = isset($getParams["tablename"]) ? $getParams["tablename"] :  "";
+
+    $args = array(
+        'tourprice' => $tourPrice,
+        'saletourprice' => $saleTourPrice,
+    );
+
+    $where = array(
+        'tablename' => $currentTableName,
+    );
+
+    $sql = $wpdb->prepare("UPDATE $tablename SET tourprice = %s, saletourprice = %s WHERE tablename = %s LIMIT 1", $args['tourprice'], $args['saletourprice'], $where['tablename']);
+
+    $wpdb->query($sql);
+
+    return "Price Updated";
+}
 function update_surfiran_api_callback($data)
 {
     $params = $data->get_params();

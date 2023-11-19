@@ -117,3 +117,26 @@ width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"
         </div>
     </div>
 </div>
+
+
+
+
+
+
+<!-- 
+
+$percentageOff = (($originalPrice - $salePrice) / $originalPrice) * 100;
+$roundedPercentageOff = round($percentageOff);
+
+-->
+
+
+Iran 7 day tour => post-4647
+A 9-Day Adventure Tour of Iran Discover => post-8760
+Discover Iran in a 15-day tour => post-9419
+XPLORE IRAN ON A WOMEN ONLY TOUR => post-40564
+From Deep Deserts To Historical Cities => post-20783
+
+
+$("li.post-4647").find("span.price").html("PRICE");
+$("li.post-4647").find("span.onsale")
