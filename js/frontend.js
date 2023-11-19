@@ -61,6 +61,8 @@ jQuery(document).ready(function ($) {
 
     if (display_width < 865) {
       $(".row_expand").css("display") == "flex";
+      $(".tour_note").find("*").removeAttr("style");
+      $(".tour_note").css("fontSize", "13px");
       return;
     }
 
