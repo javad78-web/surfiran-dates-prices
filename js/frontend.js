@@ -56,6 +56,12 @@ jQuery(document).ready(function ($) {
     }
   });
 
+  const display_width = $(document).innerWidth();
+
+  if (display_width < 865) {
+    $(".tour_note").find("*").removeAttr("style");
+    $(".tour_note").css("fontSize", "13px");
+  }
   $(document).on("click", ".dateprice_table_row", function () {
     const display_width = $(document).innerWidth();
 
