@@ -93,7 +93,7 @@ width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"
                             </div>
                         <?php } ?>
                         <div class="tour_detail">
-                            <div class="tour_detail_price"><strong <?php echo !empty($value->sale_price) ? "class='expand_have_sale'" : "" ?>><?php echo "€" . $number->format($value->price) . " EUR";  ?></strong><?php echo !empty($value->sale_price) ? "<strong style='color: #EB0000 !important; '> € " . $number->format($value->sale_price) . " EUR</strong><br><div class=\"tour_detail_price_discount\">The mentioned discount price is for 4 people and above.</div>" : "" ?></div>
+                            <div class="tour_detail_price"><strong <?php echo !empty($value->sale_price) ? "class='expand_have_sale'" : "" ?>><?php echo "€" . $number->format($value->price) . " EUR";  ?></strong><?php echo !empty($value->sale_price) ? "<strong style='color: #EB0000 !important; '> € " . $number->format($value->sale_price) . " EUR</strong><br><br>The mentioned discount price is for 4 people and above." : "" ?></div>
                             <div class="tour_detail_desc">per adult in a twin share room</div>
                             <div class="tour_detail_singleprice">Want your own room?</div>
                             <div class="tour_detail_extraprice"><?php echo "Extra pay <strong>€" . $number->format($value->singleprice) . " EUR</strong>"; ?></strong></div>
