@@ -57,10 +57,10 @@ width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"
                                         echo "<div class='status_container' style='color: #f1592a;display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_guaranteed'></div>Guaranteed</div>";
                                         break;
                                     case 'fillingfast':
-                                        echo "<div class='status_container' style='color: #ffab12;display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_limited_availability'></div>Limited Availability</div>";
+                                        echo "<div class='status_container' style='color: blue;display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_limited_availability'></div>In High Demand</div>";
                                         break;
                                     case 'almostsoldout':
-                                        echo "<div class='status_container' style='color: blue; display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_in_high_demand'></div>In High Demand</div>";
+                                        echo "<div class='status_container' style='color: #ffab12; display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_in_high_demand'></div>Limited Availability</div>";
                                         break;
                                     case 'soldout':
                                         echo "Sold Out";
