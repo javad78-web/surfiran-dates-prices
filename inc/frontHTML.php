@@ -59,10 +59,7 @@ width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"
                                         echo "<div class='status_container' style='color: #00c853;display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_available'></div>Available</div>";
                                         break;
                                     case 'guaranteed':
-                                        echo "<div class='status_container' style='color: #f1592a;display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_guaranteed'></div>Guaranteed</div>";
-                                        break;
-                                    case 'fillingfast':
-                                        echo $icon_in_high_demand . "<div class='status_container' style='color: #00b7ff;display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_in_high_demand'></div>In High Demand</div>";
+                                        echo "<div class='status_container' style='color: #f1592a;display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_guaranteed'></div>Tour Guaranteed</div>";
                                         break;
                                     case 'almostsoldout':
                                         echo $icon_limited . "<div class='status_container' style='color: #ffab12; display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_limited_availability'></div>Limited Availability</div>";
