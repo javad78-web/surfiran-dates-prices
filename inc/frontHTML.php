@@ -56,7 +56,7 @@ width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"
                                ?>
                                 <?php switch ($value->tourstatus) {
                                     case 'available':
-                                        echo "<div class='status_container' style='color: #00c853;display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_available'></div>  Available</div>";
+                                        echo "<div class='status_container' style='color: #5fd573; display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_available'></div>  Available</div>";
                                         break;
                                     case 'guaranteed':
                                         echo "<div class='status_container' style='color: #f1592a;display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_guaranteed'></div>  Tour Guaranteed</div>";
