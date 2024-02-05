@@ -243,6 +243,7 @@ strong {
   height: 21px;
   transform: scale(0.7);
   margin-top: -3px;
+  margin-right: 7px;
 }
 
 .status_icon_dateandprice_guaranteed {
@@ -250,6 +251,7 @@ strong {
   width: 23px;
   height: 23px;
   transform: scale(0.7);
+  margin-right: 7px;
 }
 
 .table_item_content {
