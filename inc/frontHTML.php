@@ -65,7 +65,7 @@ width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"
                                         echo $icon_limited . "<div class='status_container' style='color: #ffab12; display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_limited_availability'></div>  Limited Availability</div>";
                                         break;
                                     case 'soldout':
-                                        echo "<div class='status_container' id="sold_out" style='display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_guaranteed'></div>  Tour Sold Out</div>";
+                                        echo "<div class='status_container' id="sold-out" style='display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_guaranteed'></div>  Tour Sold Out</div>";
                                         break;
                                 } ?>
                             </div>
