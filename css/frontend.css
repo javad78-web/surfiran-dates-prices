@@ -40,6 +40,9 @@
   justify-content: space-around;
   align-items: center;
   text-align: center;
+  color: white;
+  text-shadow: none;
+}
 }
 
 .dateprice_table_body_container {
