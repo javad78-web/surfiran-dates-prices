@@ -56,16 +56,16 @@ width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"
                                ?>
                                 <?php switch ($value->tourstatus) {
                                     case 'available':
-                                        echo "<div class='status_container' style='color: #00c853;display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_available'></div>Available</div>";
+                                        echo "<div class='status_container' style='color: #00c853;display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_available'></div>  Available</div>";
                                         break;
                                     case 'guaranteed':
-                                        echo "<div class='status_container' style='color: #f1592a;display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_guaranteed'></div>Tour Guaranteed</div>";
+                                        echo "<div class='status_container' style='color: #f1592a;display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_guaranteed'></div>  Tour Guaranteed</div>";
                                         break;
                                     case 'almostsoldout':
-                                        echo $icon_limited . "<div class='status_container' style='color: #ffab12; display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_limited_availability'></div>Limited Availability</div>";
+                                        echo $icon_limited . "<div class='status_container' style='color: #ffab12; display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_limited_availability'></div>  Limited Availability</div>";
                                         break;
                                     case 'soldout':
-                                        echo $icon_sold_out . "<div class='status_container' style='color: red; display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_sold_out'></div>Sold Out</div>";
+                                        echo "<div class='status_container' style='display: flex;justify-content: center;align-items: center;'><div class='status_icon_dateandprice_guaranteed'></div>  Tour Sold Out</div>";
                                         break;
                                 } ?>
                             </div>
