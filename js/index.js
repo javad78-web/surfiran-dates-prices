@@ -323,16 +323,13 @@ jQuery(document).ready(function ($) {
                     }>Available</option>
                     <option value="guaranteed" ${
                       format_status === "guaranteed" ? "selected" : ""
-                    }>Guaranteed</option>
+                    }>Tour Guaranteed</option>
                     <option value="fillingfast" ${
                       format_status === "fillingfast" ? "selected" : ""
-                    }>Filling Fast</option>
-                    <option value="almostsoldout" ${
-                      format_status === "almostsoldout" ? "selected" : ""
-                    }>Almost Sold Out</option>
+                    }>Limited Availability</option>
                     <option value="soldout" ${
                       format_status === "soldout" ? "selected" : ""
-                    }>Sold Out</option>
+                    }>Tour Sold Out</option>
                     </select>
                     </div>`;
           output +=
@@ -483,14 +480,12 @@ jQuery(document).ready(function ($) {
     $(".tournote").each(function () {
       tournote_row_id = $(this).attr("row_id");
 
-      if (tournote_row_id === mainNotePopup.attr("id")) {
+      if (tournote_row_id == mainNotePopup.attr("id")) {
         if (encodeHTML == "PHA+PGJyIGRhdGEtbWNlLWJvZ3VzPSIxIj48L3A+") {
           $(this).val("");
         } else {
           $(this).val(encodeHTML);
         }
-      } else {
-        return false;
       }
 
       $(".note_popup").hide();
