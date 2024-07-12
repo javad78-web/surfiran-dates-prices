@@ -129,8 +129,11 @@ $exist_tables = array_unique($tablename);
                         </div>
                     </div>
                     <div class="main_note_popup">
-                        <?php global $editor_value; ?>
-                        <?php wp_editor($editor_value, 'note-content', []); ?>
+                        <img class="blank-image" src="" alt="Blank Image" width="100px" height="100px">
+                        <button class="btn btn-primary choose-image">Choose Image</button>
+                        <input type="text" class="image-details" placeholder="Image Details">
+                        <input type="text" class="link-search" placeholder="Search for a Link">
+                        <div class="search_link_result"></div>
                     </div>
                     <div class="footer_note_popup">
                         <button class="btn btn-success submit-note" type="submit">Save Note</button>
@@ -140,3 +143,5 @@ $exist_tables = array_unique($tablename);
         </div>
     </div>
 </div>
+<!-- global $editor_value; -->
+<!-- wp_editor($editor_value, 'note-content', []); -->

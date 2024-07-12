@@ -5,7 +5,7 @@ add_action('rest_api_init', 'post_date_surfiran_api');
 add_action('rest_api_init', 'delete_date_surfiran_api');
 add_action('rest_api_init', 'update_date_surfiran_api');
 add_action('rest_api_init', 'tour_prices_surfiran_api');
-
+add_action('rest_api_init', 'search_page');
 
 
 function tour_prices_surfiran_api()
@@ -13,6 +13,14 @@ function tour_prices_surfiran_api()
     register_rest_route('dateandprice/v1', 'tables/prices', [
         'methods' => WP_REST_SERVER::ALLMETHODS,
         'callback' => 'tour_prices_api_callback'
+    ]);
+}
+
+function search_page()
+{
+    register_rest_route('dateandprice/v1', 'p_link', [
+        'methods' => 'get',
+        'callback' => 'get_page_links'
     ]);
 }
 function update_date_surfiran_api()
@@ -71,6 +79,33 @@ function tour_prices_api_callback($data)
     $wpdb->query($sql);
 
     return "Price Updated";
+}
+
+function get_page_links($data)
+{
+    global $wpdb;
+    $tablename = $wpdb->prefix . "posts";
+    $params = $data->get_params();
+
+    $page_link = isset($params["page_link"]) ? sanitize_text_field($params["page_link"]) : "";
+
+    if (!empty($page_link)) {
+        $get_pages = $wpdb->get_results("SELECT post_title , guid FROM $tablename WHERE post_title LIKE '%$page_link%' AND post_type = 'page' LIMIT 10");
+
+        $result = [];
+
+        if (isset($get_pages) && !empty($get_pages)) {
+            foreach ($get_pages as $page) {
+                $arr_page = get_object_vars($page);
+                $result[] = [
+                    "title" => $arr_page["post_title"],
+                    "link" => $arr_page["guid"]
+                ];
+            }
+        }
+
+        return $result;
+    }
 }
 function update_surfiran_api_callback($data)
 {

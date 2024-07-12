@@ -136,6 +136,8 @@ class TourDate
         wp_enqueue_script('jqueryconfirmscript');
         wp_enqueue_style('mainstyle', plugin_dir_url(__FILE__) . 'css/main.css');
         wp_enqueue_style('wp-editor');
+        wp_enqueue_media();
+        wp_enqueue_script('wplink');
 
         add_filter('mce_buttons', [$this, 'customize_editor_toolbar']);
         // add_filter('mce_buttons_2', [$this, 'customize_tinymce_init']);

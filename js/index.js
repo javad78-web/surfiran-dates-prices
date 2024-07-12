@@ -15,7 +15,7 @@ jQuery(document).ready(function ($) {
   });
 
   $(document).on("click", "#move_down", function () {
-    var row = $(this).closest(".table-row");
+    let row = $(this).closest(".table-row");
     let current_pos = row.find(".position").val();
     let perv_pos = row.next().find(".position").val();
 
@@ -586,4 +586,38 @@ jQuery(document).ready(function ($) {
       });
     });
   });
+
+  $(".choose-image").on("click", function () {
+    wp.media.editor.send.attachment = function (props, attachment) {
+      $(".blank-image").attr("src", attachment.url);
+    };
+    wp.media.editor.open();
+    return false;
+  });
+
+  let typingTimer;
+  let doneTypingInterval = 500; // Adjust the interval as needed (in milliseconds)
+
+  $(".link-search").on("input", function () {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(doneTyping, doneTypingInterval);
+  });
+
+  function doneTyping() {
+    let searchQuery = $(".link-search").val();
+    $.get(
+      `${surfiranDatePrice.site_route}/wp-json/dateandprice/v1/p_link?page_link=${searchQuery}`
+    ).done(function (pages) {
+      $(".search_link_result").empty();
+      if (pages.length > 0) {
+        pages.map(function (page) {
+          $(".search_link_result").append(
+            `<div data-link="${page.link}">${page.title}</div>`
+          );
+        });
+      } else {
+        $(".search_link_result").html(`<div>Nothing Found!</div>`);
+      }
+    });
+  }
 });
