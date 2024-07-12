@@ -30,7 +30,8 @@ class TourDate
         $this->tableName = $wpdb->prefix . "tableName";
         add_action('init', [$this, 'loadFrontAssets']);
         add_action('init', [$this, 'loadGlobalAdminAssets']);
-        add_action('activate_surfiran-tourdate/surfiran-tourdate.php', [$this, 'onActivate']);
+        // add_action('activate_surfiran-tourdate/surfiran-tourdate.php', [$this, 'onActivate']);
+        register_activation_hook(__FILE__, [$this , 'onActivate']);
         add_action('admin_menu', [$this, 'date_and_price_page']);
     }
 
@@ -78,6 +79,8 @@ class TourDate
             tourstatus varchar(60) NOT NULL DEFAULT '',
             tablename varchar(60) NOT NULL DEFAULT '',
             position bigint(20) NOT NULL DEFAULT 0,
+            sale_price varchar(60) NOT NULL,
+            date_note text NOT NULL,
             PRIMARY KEY  (id)
           ) $this->charset;");
     }
