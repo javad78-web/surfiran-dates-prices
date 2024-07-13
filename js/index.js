@@ -596,7 +596,7 @@ jQuery(document).ready(function ($) {
   });
 
   let typingTimer;
-  let doneTypingInterval = 500; // Adjust the interval as needed (in milliseconds)
+  let doneTypingInterval = 500;
 
   $(".link-search").on("input", function () {
     clearTimeout(typingTimer);
@@ -604,10 +604,21 @@ jQuery(document).ready(function ($) {
   });
 
   function doneTyping() {
+    $(".page_search").append(
+      `<div class="spinner-grow spinner-grow-sm text-secondary" role="status"></div>`
+    );
+
     let searchQuery = $(".link-search").val();
+
+    if (searchQuery.length == 0) {
+      $(".page_search .spinner-grow").remove();
+      $(".search_link_result").empty();
+    }
+
     $.get(
       `${surfiranDatePrice.site_route}/wp-json/dateandprice/v1/p_link?page_link=${searchQuery}`
     ).done(function (pages) {
+      $(".page_search .spinner-grow").remove();
       $(".search_link_result").empty();
       if (pages.length > 0) {
         pages.map(function (page) {

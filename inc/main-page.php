@@ -129,11 +129,19 @@ $exist_tables = array_unique($tablename);
                         </div>
                     </div>
                     <div class="main_note_popup">
-                        <img class="blank-image" src="" alt="Blank Image" width="100px" height="100px">
-                        <button class="btn btn-primary choose-image">Choose Image</button>
-                        <input type="text" class="image-details" placeholder="Image Details">
-                        <input type="text" class="link-search" placeholder="Search for a Link">
-                        <div class="search_link_result"></div>
+                        <div class="guide_image">
+                            <img class="blank-image" src="" alt="Blank Image" width="100px" height="100px">
+                            <button class="btn btn-primary choose-image">Choose Image</button>
+                        </div>
+                        <div class="guide_details">
+                            <input type="text" class="image-details" placeholder="Image Details">
+                        </div>
+                        <div class="page_search">
+                            <input type="text" class="link-search" placeholder="Search for a Link">
+                        </div>
+                        <div class="page_result">
+                            <div class="search_link_result"></div>
+                        </div>
                     </div>
                     <div class="footer_note_popup">
                         <button class="btn btn-success submit-note" type="submit">Save Note</button>
