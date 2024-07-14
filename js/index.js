@@ -258,6 +258,7 @@ jQuery(document).ready(function ($) {
   });
 
   $(".btn-edit").click(function () {
+    // console.log("word");
     const id = $(this).attr("id");
     $(".main_overlay").css("display", "flex");
     $(".submit");
@@ -315,31 +316,31 @@ jQuery(document).ready(function ($) {
             row.sale_price +
             '" placeholder="Sale Price" /></div>';
           output += `<div class="table-body-item">
-                    <select name="tourstatus[]" id="tour_status${
-                      row.id
-                    }" class="tour_status">
-                    <option value="available" ${
-                      format_status === "available" ? "selected" : ""
-                    }>Available</option>
-                    <option value="guaranteed" ${
-                      format_status === "guaranteed" ? "selected" : ""
-                    }>Tour Guaranteed</option>
-                    <option value="fillingfast" ${
-                      format_status === "fillingfast" ? "selected" : ""
-                    }>Limited Availability</option>
-                    <option value="soldout" ${
-                      format_status === "soldout" ? "selected" : ""
-                    }>Tour Sold Out</option>
-                    </select>
-                    </div>`;
+                      <select name="tourstatus[]" id="tour_status${
+                        row.id
+                      }" class="tour_status">
+                      <option value="available" ${
+                        format_status === "available" ? "selected" : ""
+                      }>Available</option>
+                      <option value="guaranteed" ${
+                        format_status === "guaranteed" ? "selected" : ""
+                      }>Tour Guaranteed</option>
+                      <option value="fillingfast" ${
+                        format_status === "fillingfast" ? "selected" : ""
+                      }>Limited Availability</option>
+                      <option value="soldout" ${
+                        format_status === "soldout" ? "selected" : ""
+                      }>Tour Sold Out</option>
+                      </select>
+                      </div>`;
           output +=
             '<div class="table-body-item options_btn" id="' +
             row.id +
             '"><div class="btn_option_tab"><span class="dashicons dashicons-admin-generic"></span></div></div>';
           output += `<div id="${row.id}" class="options_tab" style="display: none;">
-                      <button type="button" name="tour_note" class="surf-custom-btn tour-note-btn" id=${row.id}>Note</button>
-                      <button type="button" name="delete_row" class="surf-custom-btn delete-btn delete_row" id=${row.id}>Delete</button>
-                     </div>`;
+                        <button type="button" name="tour_note" class="surf-custom-btn tour-note-btn" id=${row.id}>Note</button>
+                        <button type="button" name="delete_row" class="surf-custom-btn delete-btn delete_row" id=${row.id}>Delete</button>
+                       </div>`;
           output += `<input type="hidden" name="hidden_tournote[]" id="tournote" row_id=${
             row.id
           } class="tournote" value=${
@@ -379,15 +380,15 @@ jQuery(document).ready(function ($) {
       $(".main_overlay").css("display", "none");
     });
 
-    $(".view_and_edit").fadeIn();
-    $(".view_and_edit").css("display", "flex");
+    $(".view_and_edit_container").fadeIn();
+    $(".view_and_edit_container").css("display", "flex");
     $(".view_and_edit .body-container .body-header-container .title").text(
       `Edit Table ${id}`
     );
   });
 
   $(".close-btn").click(function closeModal() {
-    $(".view_and_edit").fadeOut("Fast");
+    $(".view_and_edit_container").fadeOut("Fast");
     $("body").css("overflow", "auto");
     setTimeout(function () {
       output = `<div class="table-header-container">
@@ -462,7 +463,8 @@ jQuery(document).ready(function ($) {
         } else {
           decodeHTML = atob(tournote_value);
         }
-        popup_note.show("fast");
+        $(".note_popup_container").show("fast");
+        $(".note_popup_container").css("display" , "flex");
         data.map((row) => {
           textArea.html(decodeHTML);
         });
@@ -487,12 +489,12 @@ jQuery(document).ready(function ($) {
         }
       }
 
-      $(".note_popup").hide();
+      $(".note_popup_container").hide();
     });
   });
 
   $(document).on("click", ".close_note_popup", function () {
-    popup_note.hide("fast");
+    $(".note_popup_container").hide("fast");
   });
 
   $(this).on("click", function (e) {

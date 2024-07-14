@@ -423,7 +423,7 @@ body {
   right: 0;
   bottom: 0;
   z-index: 22222;
-  display: flex;
+  display: none;
   justify-content: center;
 }
 .note_popup {
@@ -441,14 +441,8 @@ body {
   width: 60%;
   height: 75%;
   flex-direction: column;
-  top: 90px;
-}
-
-.container_note_popup {
-  display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  height: 100%;
+  top: 90px;
 }
 
 .header_note_popup {

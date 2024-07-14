@@ -122,8 +122,7 @@ $exist_tables = array_unique($tablename);
                     </div>
                 </form>
                 <div class="note_popup_container">
-                    <div class="note_popup" style="display: none;">
-                        <div class="container_note_popup">
+                    <div class="note_popup">
                             <div class="header_note_popup">
                                 <div class="close_note_popup">
                                     <span class="dashicons dashicons-no"></span>
@@ -131,7 +130,7 @@ $exist_tables = array_unique($tablename);
                             </div>
                             <div class="main_note_popup">
                                 <div class="guide_image">
-                                    <img class="blank-image" src="" alt="Blank Image" width="100px" height="100px">
+                                    <img class="blank-image" src="<?= plugins_url("css/icon/B-img.webp" , dirname(__FILE__)) ?>" alt="Blank Image" width="100px" height="100px">
                                     <button class="btn btn-primary choose-image">Choose Image</button>
                                 </div>
                                 <div class="guide_details">
@@ -147,7 +146,6 @@ $exist_tables = array_unique($tablename);
                             <div class="footer_note_popup">
                                 <button class="btn btn-success submit-note" type="submit">Save Note</button>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
