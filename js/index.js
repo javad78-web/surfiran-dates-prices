@@ -381,7 +381,6 @@ jQuery(document).ready(function ($) {
 
     $(".view_and_edit").fadeIn();
     $(".view_and_edit").css("display", "flex");
-    $("body").css("overflow", "hidden");
     $(".view_and_edit .body-container .body-header-container .title").text(
       `Edit Table ${id}`
     );
