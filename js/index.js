@@ -437,20 +437,9 @@ jQuery(document).ready(function ($) {
   $(document).on("click", ".tour-note-btn", function () {
     mainNotePopup = $(".main_note_popup");
     $(".note_load_overlay").css("display", "flex");
-    const textEditor = mainNotePopup.children()[0];
-    const textEditorID = $(textEditor).attr("id");
-    const noteHTML = $(textEditor).find("iframe").contents();
-    textArea = noteHTML.find("#tinymce");
     note_row_id = $(this).attr("id");
     mainNotePopup.attr("id", note_row_id);
-    const newID = $(textEditor).attr(
-      "id",
-      `wp-note-content-${note_row_id}-wrap`
-    );
-    // if (!/\d/.test(textEditorID) || textEditorID.match(/\d+/)[0] != id) {
-    //   $(textEditor).attr("id", newID);
-    // }
-
+    
     $.get(
       `${surfiranDatePrice.site_route}/wp-json/dateandprice/v1/tables?row_id=${note_row_id}`
     )

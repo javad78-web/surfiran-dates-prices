@@ -428,12 +428,6 @@ body {
 }
 .note_popup {
   position: absolute;
-  background: rgb(250, 250, 250);
-  background: linear-gradient(
-    343deg,
-    rgba(147, 147, 147, 1) 0%,
-    rgba(255, 255, 255, 1) 57%
-  );
   box-shadow: 0 0 3px #b2b2b2;
   padding: 20px;
   border-radius: 5px;
@@ -443,6 +437,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   top: 90px;
+  background: white;
 }
 
 .header_note_popup {
@@ -460,6 +455,42 @@ body {
   color: #9b9b9b;
 }
 
+.main_note_popup {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+.guide_image {
+  display: flex;
+  flex-direction: column;
+  width: 14%;
+  gap: 10px;
+}
+.guide_image img {
+  width: 100%;
+  height: 120px;
+  border-radius: 5px;
+}
+.choose-image {
+  padding: 3px 0;
+  font-size: 14px;
+}
+.guide_details {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+.image-details {
+  border: 1px solid #e0e0e0;
+}
+.page_search {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+.link-search {
+  border: 1px solid #e0e0e0;
+}
 .note_load_overlay {
   position: absolute;
   width: 100%;
