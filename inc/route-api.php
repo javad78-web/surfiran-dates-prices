@@ -90,7 +90,7 @@ function get_page_links($data)
     $page_link = isset($params["page_link"]) ? sanitize_text_field($params["page_link"]) : "";
 
     if (!empty($page_link)) {
-        $get_pages = $wpdb->get_results("SELECT post_title , guid FROM $tablename WHERE post_title LIKE '%$page_link%' AND post_type = 'page' LIMIT 10");
+        $get_pages = $wpdb->get_results("SELECT post_title , guid FROM $tablename WHERE post_title LIKE '%$page_link%' AND post_type = 'page' AND (guid IS NOT NULL AND guid <> '') AND post_status = 'publish' LIMIT 10");
 
         $result = [];
 

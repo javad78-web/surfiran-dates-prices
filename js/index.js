@@ -565,6 +565,10 @@ jQuery(document).ready(function ($) {
 
   let typingTimer;
   let doneTypingInterval = 500;
+  let selected_page_link = {
+    title: "",
+    url: "",
+  };
 
   $(".link-search").on("input", function () {
     clearTimeout(typingTimer);
@@ -572,13 +576,15 @@ jQuery(document).ready(function ($) {
   });
 
   function doneTyping() {
-    $(".page_search").append(
-      `<div class="spinner-grow spinner-grow-sm text-secondary" role="status"></div>`
-    );
+    if ($(".page_search").find(".spinner-grow").length == 0) {
+      $(".page_search").append(
+        `<div class="spinner-grow spinner-grow-sm text-primary" role="status"></div>`
+      );
+    }
 
-    let searchQuery = $(".link-search").val().trim();
+    let searchInput = $(".link-search").val().trim();
 
-    if (searchQuery.length == 0) {
+    if (searchInput.length == 0) {
       $(".page_search .spinner-grow").remove();
       $(".search_link_result").empty();
       $(".link-search").css({
@@ -588,7 +594,7 @@ jQuery(document).ready(function ($) {
     }
 
     $.get(
-      `${surfiranDatePrice.site_route}/wp-json/dateandprice/v1/p_link?page_link=${searchQuery}`,
+      `${surfiranDatePrice.site_route}/wp-json/dateandprice/v1/p_link?page_link=${searchInput}`,
       function (data) {
         $(".search_link_result").empty();
         $(".link-search").css({
@@ -603,14 +609,19 @@ jQuery(document).ready(function ($) {
         if (pages.length > 0) {
           pages.map(function (page) {
             $(".search_link_result").append(
-              `<div data-link="${page.link}">${page.title}</div>`
+              `<div class="link_result" data-link="${page.link}">
+                <div class="page_title">${page.title}</div>
+                <span>${page.link}</span>
+              </div>`
             );
           });
         } else {
           $(".link-search").css({
             border: "2px solid #a90f0f",
           });
-          $(".search_link_result").html(`<div>Nothing Found!</div>`);
+          $(".search_link_result").html(
+            `<div style="padding: 10px;font-size: 17px;font-weight: bold;color: #a90f0f;">Nothing Found!</div>`
+          );
         }
       })
       .fail(function (jqXHR, textStatus, errorThrow) {
@@ -619,4 +630,15 @@ jQuery(document).ready(function ($) {
         });
       });
   }
+
+  $(document).on("click", ".search_link_result .link_result", function () {
+    clearTimeout(typingTimer);
+    selected_page_link.title = $(this).find(".page_title").text();
+    selected_page_link.url = $(this).attr("data-link");
+    $(".selected_page").html(
+      `<a href="${selected_page_link.url}" target="_blank">Selected Page: <span>${selected_page_link.title}</span></a>`
+    );
+    $(".link-search").val("");
+    $(".search_link_result").empty();
+  });
 });

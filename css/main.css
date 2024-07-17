@@ -428,13 +428,17 @@ body {
   justify-content: center;
   align-items: center;
 }
-
+.spinner-grow {
+  position: absolute;
+  top: 26%;
+  right: 2%;
+}
 .note_popup {
   position: absolute;
   padding: 20px;
   border-radius: 5px;
   display: flex;
-  width: 30%;
+  width: 550px;
   flex-direction: column;
   justify-content: space-between;
   background: white;
@@ -458,7 +462,7 @@ body {
 
 .main_note_popup {
   display: flex;
-  gap: 10px;
+  gap: 15px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -481,7 +485,7 @@ body {
   padding: 3px 0;
   font-size: 14px;
 }
-.guide_details {
+.guide-skills {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -491,15 +495,59 @@ body {
 }
 .page_search {
   display: flex;
+  position: relative;
   flex-direction: column;
   width: 100%;
   align-items: center;
   gap: 10px;
+  z-index: 1;
 }
 .link-search {
   border: 1px solid #e0e0e0;
   width: 100%;
 }
+
+.page_result {
+  width: 100%;
+  margin-top: -22px;
+}
+.search_link_result {
+  margin-top: 10px;
+  height: 250px;
+  overflow: auto;
+}
+
+.link_result {
+  box-shadow: 0px 1px 1px 0px #bdbdbd;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: ease-out 0.3s;
+}
+
+.link_result:hover {
+  background: #f3f3f3;
+  border-bottom: 1px solid #00bf0085;
+}
+
+.link_result .page_title {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.link_result span {
+  font-size: 12px;
+  font-style: italic;
+  text-decoration: underline;
+  color: #0d6efd;
+}
+
+.input-help {
+}
+.selected_page {
+}
+
 .note_load_overlay {
   position: absolute;
   width: 100%;
