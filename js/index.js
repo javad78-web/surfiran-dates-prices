@@ -555,20 +555,27 @@ jQuery(document).ready(function ($) {
     });
   });
 
-  $(".choose-image").on("click", function () {
-    wp.media.editor.send.attachment = function (props, attachment) {
-      $(".blank-image").attr("src", attachment.url);
-    };
-    wp.media.editor.open();
-    return false;
-  });
-
   let typingTimer;
   let doneTypingInterval = 500;
   let selected_page_link = {
     title: "",
     url: "",
   };
+
+  const tour_guide_info = {
+    img_src: "",
+    skills: "",
+    page_link: selected_page_link.url,
+  };
+
+  $(".choose-image").on("click", function () {
+    wp.media.editor.send.attachment = function (props, attachment) {
+      $(".blank-image").attr("src", attachment.url);
+      tour_guide_info.img_src = attachment.url;
+    };
+    wp.media.editor.open();
+    return false;
+  });
 
   $(".link-search").on("input", function () {
     clearTimeout(typingTimer);
@@ -631,6 +638,7 @@ jQuery(document).ready(function ($) {
       });
   }
 
+  // Click Event on page links Result.
   $(document).on("click", ".search_link_result .link_result", function () {
     clearTimeout(typingTimer);
     selected_page_link.title = $(this).find(".page_title").text();
@@ -640,5 +648,14 @@ jQuery(document).ready(function ($) {
     );
     $(".link-search").val("");
     $(".search_link_result").empty();
+  });
+
+  $(".guide-skills").on("input", function () {
+    tour_guide_info.skills = $(this).val().trim();
+    if (tour_guide_info.skills.match("/^[a-zA-Z]+(?:,[a-zA-Z]+)*$")) {
+      console.log("work");
+    }
+
+    // if (tour_guide_info.skills.includes(','))
   });
 });
