@@ -430,7 +430,6 @@ jQuery(document).ready(function ($) {
   });
 
   let popup_note = $(".note_popup");
-  let textArea;
   let note_row_id;
   let mainNotePopup;
 
@@ -439,24 +438,14 @@ jQuery(document).ready(function ($) {
     $(".note_load_overlay").css("display", "flex");
     note_row_id = $(this).attr("id");
     mainNotePopup.attr("id", note_row_id);
-    
+
     $.get(
       `${surfiranDatePrice.site_route}/wp-json/dateandprice/v1/tables?row_id=${note_row_id}`
     )
       .done(function (data) {
         $(".note_load_overlay").css("display", "none");
-        let decodeHTML;
-        const tournote_value = $(`.tournote[row_id = ${note_row_id}]`).val();
-        if (tournote_value.includes("/")) {
-          decodeHTML = atob(tournote_value.replaceAll("/", ""));
-        } else {
-          decodeHTML = atob(tournote_value);
-        }
         $(".note_popup_container").show("fast");
-        $(".note_popup_container").css("display" , "flex");
-        data.map((row) => {
-          textArea.html(decodeHTML);
-        });
+        $(".note_popup_container").css("display", "flex");
       })
       .fail(function (err) {
         console.log(err.responseText);
@@ -464,19 +453,8 @@ jQuery(document).ready(function ($) {
   });
 
   $(document).on("click", ".submit-note", function () {
-    encodeCode = textArea.html().replace(/[\uFEFF]/g, "");
-    const encodeHTML = btoa(encodeCode);
-
     $(".tournote").each(function () {
       tournote_row_id = $(this).attr("row_id");
-
-      if (tournote_row_id == mainNotePopup.attr("id")) {
-        if (encodeHTML == "PHA+PGJyIGRhdGEtbWNlLWJvZ3VzPSIxIj48L3A+") {
-          $(this).val("");
-        } else {
-          $(this).val(encodeHTML);
-        }
-      }
 
       $(".note_popup_container").hide();
     });
@@ -598,30 +576,47 @@ jQuery(document).ready(function ($) {
       `<div class="spinner-grow spinner-grow-sm text-secondary" role="status"></div>`
     );
 
-    let searchQuery = $(".link-search").val();
+    let searchQuery = $(".link-search").val().trim();
 
     if (searchQuery.length == 0) {
       $(".page_search .spinner-grow").remove();
       $(".search_link_result").empty();
+      $(".link-search").css({
+        border: "1px solid #e0e0e0",
+      });
+      return;
     }
 
     $.get(
-      `${surfiranDatePrice.site_route}/wp-json/dateandprice/v1/p_link?page_link=${searchQuery}`
-    ).done(function (pages) {
-      $(".page_search .spinner-grow").remove();
-      $(".search_link_result").empty();
-      
-  // border: 2px solid #0fa90f;
-  // border: 2px solid #a90f0f;
-      if (pages.length > 0) {
-        pages.map(function (page) {
-          $(".search_link_result").append(
-            `<div data-link="${page.link}">${page.title}</div>`
-          );
+      `${surfiranDatePrice.site_route}/wp-json/dateandprice/v1/p_link?page_link=${searchQuery}`,
+      function (data) {
+        $(".search_link_result").empty();
+        $(".link-search").css({
+          border: "2px solid #0fa90f",
         });
-      } else {
-        $(".search_link_result").html(`<div>Nothing Found!</div>`);
       }
-    });
+    )
+      .done(function (pages) {
+        $(".page_search .spinner-grow").remove();
+        $(".search_link_result").empty();
+
+        if (pages.length > 0) {
+          pages.map(function (page) {
+            $(".search_link_result").append(
+              `<div data-link="${page.link}">${page.title}</div>`
+            );
+          });
+        } else {
+          $(".link-search").css({
+            border: "2px solid #a90f0f",
+          });
+          $(".search_link_result").html(`<div>Nothing Found!</div>`);
+        }
+      })
+      .fail(function (jqXHR, textStatus, errorThrow) {
+        $(".link-search").css({
+          border: "2px solid #a90f0f",
+        });
+      });
   }
 });
