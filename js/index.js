@@ -610,6 +610,9 @@ jQuery(document).ready(function ($) {
     ).done(function (pages) {
       $(".page_search .spinner-grow").remove();
       $(".search_link_result").empty();
+      
+  // border: 2px solid #0fa90f;
+  // border: 2px solid #a90f0f;
       if (pages.length > 0) {
         pages.map(function (page) {
           $(".search_link_result").append(
