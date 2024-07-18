@@ -653,7 +653,6 @@ jQuery(document).ready(function ($) {
 
   $(".guide-skills").on("input", function () {
     const skillsInputVal = $(this).val().trim().replace(/ /g, "");
-    tour_guide_info.skills = "";
     if (skillsInputVal.length > 0) {
       tour_guide_info.skills = skillsInputVal;
       let regex_pattern = /^[a-zA-Z]+(?:,[a-zA-Z]+)*(?:,)?$/;
@@ -668,6 +667,11 @@ jQuery(document).ready(function ($) {
         });
         $(".guide_details .warning").empty();
       }
+    } else {
+      tour_guide_info.skills = "";
+      $(".guide-skills").css({
+        border: "1px solid #e0e0e0",
+      });
     }
   });
 });
