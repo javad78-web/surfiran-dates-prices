@@ -137,6 +137,7 @@ $exist_tables = array_unique($tablename);
                             <div class="guide_details">
                                 <label>Guide Skills</label>
                                 <input type="text" class="guide-skills" placeholder="Proficiency">
+                                <div class="warning"></div>
                                 <div class="input-help">Enter the Skills, separating them with commas</div>
                             </div>
                             <div class="page_search">

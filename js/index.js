@@ -638,7 +638,8 @@ jQuery(document).ready(function ($) {
       });
   }
 
-  // Click Event on page links Result.
+  // Click Event on page links Result...
+
   $(document).on("click", ".search_link_result .link_result", function () {
     clearTimeout(typingTimer);
     selected_page_link.title = $(this).find(".page_title").text();
@@ -651,11 +652,22 @@ jQuery(document).ready(function ($) {
   });
 
   $(".guide-skills").on("input", function () {
-    tour_guide_info.skills = $(this).val().trim();
-    if (tour_guide_info.skills.match("/^[a-zA-Z]+(?:,[a-zA-Z]+)*$")) {
-      console.log("work");
+    const skillsInputVal = $(this).val().trim().replace(/ /g, "");
+    tour_guide_info.skills = "";
+    if (skillsInputVal.length > 0) {
+      tour_guide_info.skills = skillsInputVal;
+      let regex_pattern = /^[a-zA-Z]+(?:,[a-zA-Z]+)*(?:,)?$/;
+      if (!regex_pattern.test(tour_guide_info.skills)) {
+        $(".guide-skills").css({
+          border: "2px solid #a90f0f",
+        });
+        $(".guide_details .warning").html("Somthing Wrong!!!");
+      } else {
+        $(".guide-skills").css({
+          border: "1px solid #e0e0e0",
+        });
+        $(".guide_details .warning").empty();
+      }
     }
-
-    // if (tour_guide_info.skills.includes(','))
   });
 });
