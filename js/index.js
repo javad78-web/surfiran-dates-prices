@@ -577,15 +577,11 @@ jQuery(document).ready(function ($) {
 
   let typingTimer;
   let doneTypingInterval = 500;
-  let selected_page_link = {
-    title: "",
-    url: "",
-  };
 
   const tour_guide_info = {
     img_src: "",
     skills: "",
-    page_link: selected_page_link.url,
+    page_link: "",
   };
 
   $(document).on("click", ".choose-image", function () {
@@ -664,10 +660,14 @@ jQuery(document).ready(function ($) {
 
   $(document).on("click", ".search_link_result .link_result", function () {
     clearTimeout(typingTimer);
-    selected_page_link.title = $(this).find(".page_title").text();
-    selected_page_link.url = $(this).attr("data-link");
+
+    tour_guide_info.page_link = $(this).attr("data-link");
     $(".selected_page").html(
-      `<a href="${selected_page_link.url}" target="_blank">Selected Page: <span>${selected_page_link.title}</span></a>`
+      `<a href="${
+        tour_guide_info.page_link
+      }" target="_blank">Selected Page: <span>${$(this)
+        .find(".page_title")
+        .text()}</span></a>`
     );
     $(".link-search").val("");
     $(".search_link_result").empty();
@@ -676,30 +676,31 @@ jQuery(document).ready(function ($) {
   // Add the Guide Skills
 
   $(document).on("input", ".guide-skills", function () {
-    const $this = $(this);
-    const skillsInputVal = $this.val().trim().replace(/ /g, "");
+    const guideSkillsInput = $(this);
+    let skillsInputVal = guideSkillsInput.val().trim().replace(/ /g, "");
     const warningSelector = ".guide_details .warning";
     const borderColorError = "2px solid #a90f0f";
     const borderColorDefault = "1px solid #e0e0e0";
 
-    function updateStyles(isError, message) {
-      $this.css({ border: isError ? borderColorError : borderColorDefault });
+    const updateStyles = (isError, message) => {
+      guideSkillsInput.css({
+        border: isError ? borderColorError : borderColorDefault,
+      });
       $(warningSelector).html(message);
-    }
+    };
 
-    if (skillsInputVal.length > 0) {
-      tour_guide_info.skills = skillsInputVal;
-      let regex_pattern = /^[a-zA-Z]+(?:,[a-zA-Z]+)*(?:,)?$/;
-
-      if (!regex_pattern.test(tour_guide_info.skills)) {
-        updateStyles(true, "Something Wrong!!!");
-      } else {
-        updateStyles(false, "");
-      }
-    } else {
+    if (!validTourGuide.skill(skillsInputVal)) {
+      updateStyles(true, "Some characters are not valid");
       tour_guide_info.skills = "";
-      updateStyles(false, "");
+      return;
     }
+
+    if (skillsInputVal[skillsInputVal.length - 1] === ",") {
+      skillsInputVal = skillsInputVal.slice(0, -1);
+    }
+
+    tour_guide_info.skills = skillsInputVal;
+    updateStyles(false, "");
   });
 
   // save tour giude info for each tour date ...
@@ -707,15 +708,34 @@ jQuery(document).ready(function ($) {
   $(document).on("click", ".submit-note", function () {
     const note_id = $(".note_popup_container").attr("id");
 
-    if (isNaN(note_id) && tour_guide_info) {
-      if (tour_guide_info.img_src) {
-      }
-      if (tour_guide_info.page_link) {
-      }
-      if (tour_guide_info.skills) {
-      }
+    console.log(typeof note_id);
+    console.log(tour_guide_info);
+
+    if (!isNaN(note_id) && tour_guide_info) {
+      console.log("seted");
+      console.log(Object.values(tour_guide_info));
     }
 
     // $(".note_popup_container").hide();
   });
+
+  const validTourGuide = {
+    img: function (src) {
+      const regex_pattern = /""/;
+      if (!regex_pattern.test(src)) {
+        return false;
+      }
+      return true;
+    },
+    skill: function (skills) {
+      if (
+        skills.length > 0 &&
+        !/^[a-zA-Z]+(?:,[a-zA-Z]+)*(?:,)?$/.test(skills)
+      ) {
+        return false;
+      }
+      return true;
+    },
+    isLink: "",
+  };
 });
