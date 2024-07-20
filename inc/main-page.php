@@ -121,40 +121,6 @@ $exist_tables = array_unique($tablename);
                         <button class="btn btn-success add-row" type="button">Add Row</button>
                     </div>
                 </form>
-                <div class="note_popup_container">
-                    <div class="note_popup">
-                        <div class="header_note_popup">
-                            <div class="_title">Add Tour Guide</div>
-                            <div class="close_note_popup">
-                                <span class="dashicons dashicons-no"></span>
-                            </div>
-                        </div>
-                        <div class="main_note_popup">
-                            <div class="guide_image">
-                                <img class="blank-image" src="<?= plugins_url("css/icon/B-img.webp", dirname(__FILE__)) ?>" alt="Blank Image" width="100px" height="100px">
-                                <button class="btn btn-primary choose-image">Choose Image</button>
-                            </div>
-                            <div class="guide_details">
-                                <label>Guide Skills</label>
-                                <input type="text" class="guide-skills" placeholder="Proficiency">
-                                <div class="warning"></div>
-                                <div class="input-help">Enter the Skills, separating them with commas</div>
-                            </div>
-                            <div class="page_search">
-                                <label>Search in Pages</label>
-                                <input type="text" class="link-search" placeholder="Search for a Link">
-                                <div class="input-help">If the page is not found, it is not published.</div>
-                                <div class="selected_page"></div>
-                            </div>
-                            <div class="page_result">
-                                <div class="search_link_result"></div>
-                            </div>
-                        </div>
-                        <div class="footer_note_popup">
-                            <button class="btn btn-success submit-note" type="submit">Save Note</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

@@ -86,8 +86,6 @@ jQuery(document).ready(function ($) {
       '.table-body-container .table-row[style*="border: 1px solid #c5c5c5"]'
     ).length;
 
-    console.log(row_id);
-
     if (row_id) {
       if (old_length == 1 && table_length == 1) {
         return $.alert({
@@ -128,7 +126,6 @@ jQuery(document).ready(function ($) {
                   let position_val = $(this).find(".position").val();
                   let new_position = position_val - 1;
                   $(this).find(".position").val(new_position);
-                  console.log(new_position);
                 });
               }
 
@@ -258,7 +255,6 @@ jQuery(document).ready(function ($) {
   });
 
   $(".btn-edit").click(function () {
-    // console.log("word");
     const id = $(this).attr("id");
     $(".main_overlay").css("display", "flex");
     $(".submit");
@@ -429,22 +425,55 @@ jQuery(document).ready(function ($) {
     }
   });
 
-  let popup_note = $(".note_popup");
-  let note_row_id;
-  let mainNotePopup;
-
   $(document).on("click", ".tour-note-btn", function () {
-    mainNotePopup = $(".main_note_popup");
     $(".note_load_overlay").css("display", "flex");
-    note_row_id = $(this).attr("id");
-    mainNotePopup.attr("id", note_row_id);
+    const note_row_id = $(this).attr("id");
+    $(".note_popup_container").remove();
+
+    const mainNotePopup = `
+    <div class="note_popup_container" id="${note_row_id}">
+    <div class="note_popup">
+        <div class="header_note_popup">
+            <div class="_title">Add Tour Guide</div>
+            <div class="close_note_popup">
+                <span class="dashicons dashicons-no"></span>
+            </div>
+        </div>
+        <div class="main_note_popup">
+            <div class="guide_image">
+                <img class="blank-image" src="${surfiranDatePrice.blankImg}" alt="Blank Image">
+                <button class="btn btn-primary choose-image">Choose Image</button>
+            </div>
+            <div class="guide_details">
+                <label>Guide Skills</label>
+                <input type="text" class="guide-skills" placeholder="Proficiency">
+                <div class="warning"></div>
+                <div class="input-help">Enter the Skills, separating them with commas</div>
+            </div>
+            <div class="page_search">
+                <label>Search in Pages</label>
+                <input type="text" class="link-search" placeholder="Search for a Link">
+                <div class="input-help">If the page is not found, it's not publish.</div>
+                <div class="selected_page"></div>
+            </div>
+            <div class="page_result">
+                <div class="search_link_result"></div>
+            </div>
+        </div>
+        <div class="footer_note_popup">
+            <button class="btn btn-success submit-note" type="submit">Save Note</button>
+        </div>
+    </div>
+</div>
+    `;
 
     $.get(
       `${surfiranDatePrice.site_route}/wp-json/dateandprice/v1/tables?row_id=${note_row_id}`
     )
       .done(function (data) {
         $(".note_load_overlay").css("display", "none");
-        $(".note_popup_container").show("fast");
+        $(".body-content-container").append(mainNotePopup);
+        $(".note_popup_container").fadeIn(300);
         $(".note_popup_container").css("display", "flex");
       })
       .fail(function (err) {
@@ -452,16 +481,11 @@ jQuery(document).ready(function ($) {
       });
   });
 
-  $(document).on("click", ".submit-note", function () {
-    $(".tournote").each(function () {
-      tournote_row_id = $(this).attr("row_id");
-
-      $(".note_popup_container").hide();
-    });
-  });
-
   $(document).on("click", ".close_note_popup", function () {
     $(".note_popup_container").hide("fast");
+    setTimeout(() => {
+      $(".note_popup_container").remove();
+    }, 500);
   });
 
   $(this).on("click", function (e) {
@@ -490,9 +514,7 @@ jQuery(document).ready(function ($) {
               `/wp-json/dateandprice/v1/tables/update`,
             method: "PUT",
             data: form_data,
-            success: function (data) {
-              console.log("UPDATED");
-            },
+            success: function (data) {},
             error: function (err) {
               console.log(err.responseText);
             },
@@ -537,9 +559,7 @@ jQuery(document).ready(function ($) {
         form_data,
         tablename,
       },
-      success: function (data) {
-        console.log(data);
-      },
+      success: function (data) {},
       error: function (err) {
         console.log(err.responseText);
       },
@@ -568,16 +588,18 @@ jQuery(document).ready(function ($) {
     page_link: selected_page_link.url,
   };
 
-  $(".choose-image").on("click", function () {
+  $(document).on("click", ".choose-image", function () {
+    wp.media.editor.open();
     wp.media.editor.send.attachment = function (props, attachment) {
       $(".blank-image").attr("src", attachment.url);
       tour_guide_info.img_src = attachment.url;
     };
-    wp.media.editor.open();
     return false;
   });
 
-  $(".link-search").on("input", function () {
+  // search on pages
+
+  $(document).on("input", ".link-search", function () {
     clearTimeout(typingTimer);
     typingTimer = setTimeout(doneTyping, doneTypingInterval);
   });
@@ -631,7 +653,7 @@ jQuery(document).ready(function ($) {
           );
         }
       })
-      .fail(function (jqXHR, textStatus, errorThrow) {
+      .fail(function () {
         $(".link-search").css({
           border: "2px solid #a90f0f",
         });
@@ -651,27 +673,49 @@ jQuery(document).ready(function ($) {
     $(".search_link_result").empty();
   });
 
-  $(".guide-skills").on("input", function () {
-    const skillsInputVal = $(this).val().trim().replace(/ /g, "");
+  // Add the Guide Skills
+
+  $(document).on("input", ".guide-skills", function () {
+    const $this = $(this);
+    const skillsInputVal = $this.val().trim().replace(/ /g, "");
+    const warningSelector = ".guide_details .warning";
+    const borderColorError = "2px solid #a90f0f";
+    const borderColorDefault = "1px solid #e0e0e0";
+
+    function updateStyles(isError, message) {
+      $this.css({ border: isError ? borderColorError : borderColorDefault });
+      $(warningSelector).html(message);
+    }
+
     if (skillsInputVal.length > 0) {
       tour_guide_info.skills = skillsInputVal;
       let regex_pattern = /^[a-zA-Z]+(?:,[a-zA-Z]+)*(?:,)?$/;
+
       if (!regex_pattern.test(tour_guide_info.skills)) {
-        $(".guide-skills").css({
-          border: "2px solid #a90f0f",
-        });
-        $(".guide_details .warning").html("Somthing Wrong!!!");
+        updateStyles(true, "Something Wrong!!!");
       } else {
-        $(".guide-skills").css({
-          border: "1px solid #e0e0e0",
-        });
-        $(".guide_details .warning").empty();
+        updateStyles(false, "");
       }
     } else {
       tour_guide_info.skills = "";
-      $(".guide-skills").css({
-        border: "1px solid #e0e0e0",
-      });
+      updateStyles(false, "");
     }
+  });
+
+  // save tour giude info for each tour date ...
+
+  $(document).on("click", ".submit-note", function () {
+    const note_id = $(".note_popup_container").attr("id");
+
+    if (isNaN(note_id) && tour_guide_info) {
+      if (tour_guide_info.img_src) {
+      }
+      if (tour_guide_info.page_link) {
+      }
+      if (tour_guide_info.skills) {
+      }
+    }
+
+    // $(".note_popup_container").hide();
   });
 });

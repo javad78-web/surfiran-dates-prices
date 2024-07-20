@@ -31,7 +31,7 @@ class TourDate
         add_action('init', [$this, 'loadFrontAssets']);
         add_action('init', [$this, 'loadGlobalAdminAssets']);
         // add_action('activate_surfiran-tourdate/surfiran-tourdate.php', [$this, 'onActivate']);
-        register_activation_hook(__FILE__, [$this , 'onActivate']);
+        register_activation_hook(__FILE__, [$this, 'onActivate']);
         add_action('admin_menu', [$this, 'date_and_price_page']);
     }
 
@@ -148,7 +148,8 @@ class TourDate
         wp_enqueue_script('wp-hooks');
         wp_enqueue_script('wp-word-count');
         wp_localize_script('mainscript', 'surfiranDatePrice', [
-            'site_route' => site_url()
+            'site_route' => site_url(),
+            'blankImg' => plugin_dir_url(__FILE__) . 'css/icon/B-img.webp'
         ]);
     }
 
