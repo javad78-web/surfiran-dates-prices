@@ -67,9 +67,7 @@ $exist_tables = array_unique($tablename);
             </div>
         </div>
         <div class="header-container">
-            <div class="close-modal">
-                <span class="dashicons dashicons-no close-btn"></span>
-            </div>
+
         </div>
         <div class="body-container">
             <div class="body-header-container">
@@ -106,20 +104,9 @@ $exist_tables = array_unique($tablename);
                             <div class="table-header-item">Tour Status</div>
                             <div class="table-header-item">Options</div>
                         </div>
-                        <div class="table-body-container">
-                            <div class="main_overlay">
-                                <div class="spinner_local">
-                                    <div class="spinner-border text-info" role="status">
-                                        <span class="sr-only"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="table-body-container"></div>
                     </div>
-                    <div class="submit-form-btn">
-                        <button class="btn btn-primary submit-form" type="submit">Save Changes</button>
-                        <button class="btn btn-success add-row" type="button">Add Row</button>
-                    </div>
+                    <div class="submit-form-btn"></div>
                 </form>
             </div>
         </div>

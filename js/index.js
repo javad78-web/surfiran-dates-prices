@@ -185,7 +185,7 @@ jQuery(document).ready(function ($) {
 
   let new_rowid = 0;
 
-  $(".add-row").click(function () {
+  $(document).on("click", ".add-row", function () {
     new_rowid = new_rowid + 1;
 
     position_new = $(".table-body-container .table-row").length + 1;
@@ -256,6 +256,14 @@ jQuery(document).ready(function ($) {
 
   $(".btn-edit").click(function () {
     const id = $(this).attr("id");
+    $("#edit_table .table-body-container").empty();
+    $("#edit_table .table-body-container").append(`<div class="main_overlay">
+                                <div class="spinner_local">
+                                    <div class="spinner-border text-info" role="status">
+                                        <span class="sr-only"></span>
+                                    </div>
+                                </div>
+                            </div>`);
     $(".main_overlay").css("display", "flex");
     $(".submit");
     $.ajax({
@@ -263,117 +271,125 @@ jQuery(document).ready(function ($) {
         surfiranDatePrice.site_route +
         `/wp-json/dateandprice/v1/tables?table_id=${id}`,
       method: "GET",
-      success: function (data) {
-        data.map((row) => {
-          tablename_new = row.tablename;
-
-          let price = row.price.replace(/€|EUR|,|\s/g, "");
-
-          let singleprice = row.singleprice.replace(/€|EUR|,|\s/g, "");
-
-          let status = row.tourstatus.toLowerCase();
-
-          let format_status = status.replace(" ", "");
-
-          output =
-            '<div class="table-row" style="border: 1px solid #c5c5c5;" id="row_' +
-            row.id +
-            '">';
-          output +=
-            '<div class="table-body-item move_row"><div id="move_up"><span class="dashicons dashicons-arrow-up"></span></div><div id="move_down"><span class="dashicons dashicons-arrow-down"></span></div></div>';
-          output +=
-            '<div class="table-body-item"><input type="text" name="startdate[]" id="start_date' +
-            row.id +
-            '" class="datepicker" value="' +
-            row.startdate +
-            '" placeholder="Start Date" /></div>';
-          output +=
-            '<div class="table-body-item"><input type="text" name="enddate[]" id="end_date' +
-            row.id +
-            '" class="datepicker" value="' +
-            row.enddate +
-            '" placeholder="End Date" /></div>';
-          output +=
-            '<div class="table-body-item"><input type="text" name="price[]" id="price' +
-            row.id +
-            '" class="price" value="' +
-            price +
-            '"  placeholder="Price" /></div>';
-          output +=
-            '<div class="table-body-item"><input type="text" name="singleprice[]" id="single_price' +
-            row.id +
-            '" class="single_price" value="' +
-            singleprice +
-            '" placeholder="Single Price" /></div>';
-          output +=
-            '<div class="table-body-item"><input type="text" name="saleprice[]" id="sale_price' +
-            row.id +
-            '" class="sale_price" value="' +
-            row.sale_price +
-            '" placeholder="Sale Price" /></div>';
-          output += `<div class="table-body-item">
-                      <select name="tourstatus[]" id="tour_status${
-                        row.id
-                      }" class="tour_status">
-                      <option value="available" ${
-                        format_status === "available" ? "selected" : ""
-                      }>Available</option>
-                      <option value="guaranteed" ${
-                        format_status === "guaranteed" ? "selected" : ""
-                      }>Tour Guaranteed</option>
-                      <option value="fillingfast" ${
-                        format_status === "fillingfast" ? "selected" : ""
-                      }>Limited Availability</option>
-                      <option value="soldout" ${
-                        format_status === "soldout" ? "selected" : ""
-                      }>Tour Sold Out</option>
-                      </select>
-                      </div>`;
-          output +=
-            '<div class="table-body-item options_btn" id="' +
-            row.id +
-            '"><div class="btn_option_tab"><span class="dashicons dashicons-admin-generic"></span></div></div>';
-          output += `<div id="${row.id}" class="options_tab" style="display: none;">
-                        <button type="button" name="tour_note" class="surf-custom-btn tour-note-btn" id=${row.id}>Note</button>
-                        <button type="button" name="delete_row" class="surf-custom-btn delete-btn delete_row" id=${row.id}>Delete</button>
-                       </div>`;
-          output += `<input type="hidden" name="hidden_tournote[]" id="tournote" row_id=${
-            row.id
-          } class="tournote" value=${
-            row.date_note == "PHA+PGJyIGRhdGEtbWNlLWJvZ3VzPSIxIj48L3A+"
-              ? ""
-              : row.date_note
-          }>`;
-          output +=
-            '<input type="hidden" name="hidden_tablename[]" id="tablename" class="tablename" value="' +
-            row.tablename +
-            '" />';
-          output +=
-            '<input type="hidden" name="hidden_position[]" id="position' +
-            row.id +
-            '" class="position" value="' +
-            row.position +
-            '" />';
-          output +=
-            '<input type="hidden" name="hidden_id[]" id="row_id" value="' +
-            row.id +
-            '" />';
-          output += "</div>";
-
-          $("#edit_table .table-body-container").append(output);
-
-          $(".datepicker").each(function () {
-            $(this).datepicker({
-              dateFormat: "D d M, yy",
-            });
-          });
-        });
-      },
+      success: function (data) {},
       error: function (e) {
         console.log(e);
       },
-    }).done(function () {
+    }).done(function (data) {
+      data.map((row) => {
+        tablename_new = row.tablename;
+
+        let price = row.price.replace(/€|EUR|,|\s/g, "");
+
+        let singleprice = row.singleprice.replace(/€|EUR|,|\s/g, "");
+
+        let status = row.tourstatus.toLowerCase();
+
+        let format_status = status.replace(" ", "");
+
+        output =
+          '<div class="table-row" style="border: 1px solid #c5c5c5;" id="row_' +
+          row.id +
+          '">';
+        output +=
+          '<div class="table-body-item move_row"><div id="move_up"><span class="dashicons dashicons-arrow-up"></span></div><div id="move_down"><span class="dashicons dashicons-arrow-down"></span></div></div>';
+        output +=
+          '<div class="table-body-item"><input type="text" name="startdate[]" id="start_date' +
+          row.id +
+          '" class="datepicker" value="' +
+          row.startdate +
+          '" placeholder="Start Date" /></div>';
+        output +=
+          '<div class="table-body-item"><input type="text" name="enddate[]" id="end_date' +
+          row.id +
+          '" class="datepicker" value="' +
+          row.enddate +
+          '" placeholder="End Date" /></div>';
+        output +=
+          '<div class="table-body-item"><input type="text" name="price[]" id="price' +
+          row.id +
+          '" class="price" value="' +
+          price +
+          '"  placeholder="Price" /></div>';
+        output +=
+          '<div class="table-body-item"><input type="text" name="singleprice[]" id="single_price' +
+          row.id +
+          '" class="single_price" value="' +
+          singleprice +
+          '" placeholder="Single Price" /></div>';
+        output +=
+          '<div class="table-body-item"><input type="text" name="saleprice[]" id="sale_price' +
+          row.id +
+          '" class="sale_price" value="' +
+          row.sale_price +
+          '" placeholder="Sale Price" /></div>';
+        output += `<div class="table-body-item">
+        <select name="tourstatus[]" id="tour_status${
+          row.id
+        }" class="tour_status">
+        <option value="available" ${
+          format_status === "available" ? "selected" : ""
+        }>Available</option>
+        <option value="guaranteed" ${
+          format_status === "guaranteed" ? "selected" : ""
+        }>Tour Guaranteed</option>
+        <option value="fillingfast" ${
+          format_status === "fillingfast" ? "selected" : ""
+        }>Limited Availability</option>
+        <option value="soldout" ${
+          format_status === "soldout" ? "selected" : ""
+        }>Tour Sold Out</option>
+        </select>
+        </div>`;
+        output +=
+          '<div class="table-body-item options_btn" id="' +
+          row.id +
+          '"><div class="btn_option_tab"><span class="dashicons dashicons-admin-generic"></span></div></div>';
+        output += `<div id="${row.id}" class="options_tab" style="display: none;">
+        <button type="button" name="tour_note" class="surf-custom-btn tour-note-btn" id=${row.id}>Note</button>
+        <button type="button" name="delete_row" class="surf-custom-btn delete-btn delete_row" id=${row.id}>Delete</button>
+        </div>`;
+        output += `<input type="hidden" name="hidden_tournote[]" id="tournote" row_id=${
+          row.id
+        } class="tournote" value=${
+          row.date_note == "PHA+PGJyIGRhdGEtbWNlLWJvZ3VzPSIxIj48L3A+"
+            ? ""
+            : row.date_note
+        }>`;
+        output +=
+          '<input type="hidden" name="hidden_tablename[]" id="tablename" class="tablename" value="' +
+          row.tablename +
+          '" />';
+        output +=
+          '<input type="hidden" name="hidden_position[]" id="position' +
+          row.id +
+          '" class="position" value="' +
+          row.position +
+          '" />';
+        output +=
+          '<input type="hidden" name="hidden_id[]" id="row_id" value="' +
+          row.id +
+          '" />';
+        output += "</div>";
+
+        $("#edit_table .table-body-container").append(output);
+
+        $(".datepicker").each(function () {
+          $(this).datepicker({
+            dateFormat: "D d M, yy",
+          });
+        });
+      });
       $(".main_overlay").css("display", "none");
+      $(".view_and_edit_container").find(
+        ".header-container"
+      ).append(`<div class="close-modal">
+                <span class="dashicons dashicons-no close-btn"></span>
+            </div>`);
+      $(".form-container").find(".submit-form-btn").append(`
+              <button class="btn btn-primary submit-form" type="submit">Save Changes</button>
+              <button class="btn btn-success add-row" type="button">Add Row</button>
+              `);
     });
 
     $(".view_and_edit_container").fadeIn();
@@ -383,7 +399,11 @@ jQuery(document).ready(function ($) {
     );
   });
 
-  $(".close-btn").click(function closeModal() {
+  $(document).on("click", ".close-btn", function closeModal() {
+    $(".view_and_edit_container").find(".header-container").empty();
+    $("#edit_table .table-body-container").empty();
+    $(".form-container").find(".submit-form-btn").empty();
+
     $(".view_and_edit_container").fadeOut("Fast");
     $("body").css("overflow", "auto");
     setTimeout(function () {
@@ -519,7 +539,11 @@ jQuery(document).ready(function ($) {
               console.log(err.responseText);
             },
           });
-          $(".view_and_edit").fadeOut("Fast");
+          $(".view_and_edit_container").fadeOut("Fast");
+          $(".view_and_edit_container").find(".header-container").empty();
+          $("#edit_table .table-body-container").empty();
+          $(".form-container").find(".submit-form-btn").empty();
+
           setTimeout(function () {
             output = `<div class="table-header-container">
             <div class="table-header-item"></div>

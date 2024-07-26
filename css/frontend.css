@@ -499,6 +499,7 @@ h6 {
 
   .tour_detail {
     padding: 6px 11px 11px 11px;
+    gap: 10px;
   }
   .tour_detail_price {
     display: none;
@@ -510,7 +511,7 @@ h6 {
 
   .tour_detail_singleprice {
     font-size: 13px;
-    justify-content: space-between;
+    justify-content: end;
   }
   .tour_request_form {
     margin: 0px;

@@ -515,7 +515,7 @@ body {
 }
 .search_link_result {
   margin-top: 10px;
-  height: 250px;
+  /* height: 250px; */
   overflow: auto;
 }
 
