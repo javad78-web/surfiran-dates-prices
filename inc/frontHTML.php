@@ -93,7 +93,13 @@ width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"
                     <div class="row_expand" id="<?php echo $value->id; ?>">
                         <?php if (!empty($value->date_note)) { ?>
                             <div class="tour_note">
-                                <?php echo base64_decode(str_replace("/", "", $value->date_note)) ?>
+                                <?php $tour_note = json_decode($value->date_note); ?>
+                                <div class="guid_details">
+                                    <img class="personal_img" src="<?= $tour_note->img_src ?>" alt="<?= $tour_note->name ?>">
+                                    <div class="name"><?= $tour_note->name ?></div>
+                                    <div class="skills"><?= $tour_note->skills ?></div>
+                                    <a href="<?= $tour_note->page->link ?>" class="personal_page"><?= $tour_note->page->title ?></a>
+                                </div>
                             </div>
                         <?php } ?>
                         <div class="tour_detail">
