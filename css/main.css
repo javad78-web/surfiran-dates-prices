@@ -265,11 +265,14 @@ body {
 .table-header-container {
   display: grid;
   width: 100%;
-  background-color: #c6c6c6;
+  background-color: #80bfe9;
   border-radius: 5px;
   margin-bottom: 3px;
   font-weight: bolder;
   grid-template-columns: 4% 16% 13% 16% 14% 16% 14% 5% auto;
+  color: white;
+  text-shadow: 1px 1px 5px black;
+  font-size: 16px;
 }
 .table-header-item {
   display: flex;
@@ -423,11 +426,12 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 22222;
   display: none;
   justify-content: center;
   align-items: center;
+  overflow: auto;
 }
+
 .spinner-grow {
   position: absolute;
   top: 26%;
@@ -443,6 +447,7 @@ body {
   justify-content: space-between;
   background: white;
   box-shadow: 0px 0px 99px 32px #8d8d8d;
+  top: 10%;
 }
 
 .header_note_popup {
@@ -515,7 +520,8 @@ body {
 }
 .search_link_result {
   margin-top: 10px;
-  /* height: 250px; */
+  height: 100%;
+  max-height: 250px;
   overflow: auto;
 }
 
@@ -561,35 +567,4 @@ body {
   opacity: 0.4;
   z-index: 2;
   border-radius: 5px;
-}
-
-.tour_price_container {
-  margin-left: 20px;
-  margin-top: 24px;
-  background-color: #b7d6eb;
-  border-radius: 10px;
-}
-.header_tour_price {
-  color: black;
-  padding: 10px 20px;
-}
-.header_tour_price small {
-  font-size: 12px;
-}
-.body_tour_price {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  padding: 5px 20px;
-}
-.tour_price_form {
-  margin-bottom: 10px;
-}
-.tour_price_form button {
-  border: 2px solid white;
-  background-color: transparent;
-  padding: 3px 12px;
-  margin-top: -3px;
-  color: black;
-  font-size: 13px;
 }

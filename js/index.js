@@ -1,4 +1,14 @@
 jQuery(document).ready(function ($) {
+  let tour_guide_info = {
+    name: "",
+    img_src: surfiranDatePrice.blankImg,
+    skills: "",
+    page: {
+      title: "",
+      link: "",
+    },
+  };
+
   $(document).on("click", "#move_up", function () {
     let row = $(this).closest(".table-row");
     let current_pos = row.find(".position").val();
@@ -349,13 +359,6 @@ jQuery(document).ready(function ($) {
         <button type="button" name="tour_note" class="surf-custom-btn tour-note-btn" id=${row.id}>Note</button>
         <button type="button" name="delete_row" class="surf-custom-btn delete-btn delete_row" id=${row.id}>Delete</button>
         </div>`;
-        output += `<input type="hidden" name="hidden_tournote[]" id="tournote" row_id=${
-          row.id
-        } class="tournote" value=${
-          row.date_note == "PHA+PGJyIGRhdGEtbWNlLWJvZ3VzPSIxIj48L3A+"
-            ? ""
-            : row.date_note
-        }>`;
         output +=
           '<input type="hidden" name="hidden_tablename[]" id="tablename" class="tablename" value="' +
           row.tablename +
@@ -450,47 +453,68 @@ jQuery(document).ready(function ($) {
     const note_row_id = $(this).attr("id");
     $(".note_popup_container").remove();
 
-    const mainNotePopup = `
-    <div class="note_popup_container" id="${note_row_id}">
-    <div class="note_popup">
-        <div class="header_note_popup">
-            <div class="_title">Add Tour Guide</div>
-            <div class="close_note_popup">
-                <span class="dashicons dashicons-no"></span>
-            </div>
-        </div>
-        <div class="main_note_popup">
-            <div class="guide_image">
-                <img class="blank-image" src="${surfiranDatePrice.blankImg}" alt="Blank Image">
-                <button class="btn btn-primary choose-image">Choose Image</button>
-            </div>
-            <div class="guide_details">
-                <label>Guide Skills</label>
-                <input type="text" class="guide-skills" placeholder="Proficiency">
-                <div class="warning"></div>
-                <div class="input-help">Enter the Skills, separating them with commas</div>
-            </div>
-            <div class="page_search">
-                <label>Search in Pages</label>
-                <input type="text" class="link-search" placeholder="Search for a Link">
-                <div class="input-help">If the page is not found, it's not publish.</div>
-                <div class="selected_page"></div>
-            </div>
-            <div class="page_result">
-                <div class="search_link_result"></div>
-            </div>
-        </div>
-        <div class="footer_note_popup">
-            <button class="btn btn-success submit-note" type="submit">Save Note</button>
-        </div>
-    </div>
-</div>
-    `;
-
     $.get(
       `${surfiranDatePrice.site_route}/wp-json/dateandprice/v1/tables?row_id=${note_row_id}`
     )
-      .done(function (data) {
+      .done(function (res) {
+        if (res[0].date_note.length > 0) {
+          tour_guide_info = JSON.parse(res[0].date_note);
+        }
+
+        const mainNotePopup = `
+          <div class="note_popup_container" id="${note_row_id}">
+          <div class="note_popup">
+              <div class="header_note_popup">
+                  <div class="_title">Add Tour Guide</div>
+                  <div class="close_note_popup">
+                      <span class="dashicons dashicons-no"></span>
+                  </div>
+              </div>
+              <div class="main_note_popup">
+                  <div class="guide_image">
+                      <img class="blank-image" src="${
+                        tour_guide_info.img_src
+                      }" alt="Blank Image">
+                      <button class="btn btn-primary choose-image">Choose Image</button>
+                  </div>
+                  <div class="guide_name">
+                      <label>Name</label>
+                      <input type="text" class="guide-name" placeholder="Enter Guide Full Name" value="${
+                        tour_guide_info.name
+                      }">
+                      <div class="warning"></div>
+                  </div>
+                  <div class="guide_details">
+                      <label>Skills</label>
+                      <input type="text" class="guide-skills" placeholder="Proficiency (Optional)" value="${
+                        tour_guide_info.skills
+                      }">
+                      <div class="warning"></div>
+                      <div class="input-help">Enter the Skills, separating them with commas</div>
+                  </div>
+                  <div class="page_search">
+                      <label>Search in Pages</label>
+                      <input type="text" class="link-search" placeholder="Search for a Link">
+                      <div class="input-help">If the page is not found, it's not publish.</div>
+                      <div class="selected_page">
+                        ${
+                          tour_guide_info.page.link.length > 0
+                            ? `<a href="${tour_guide_info.page.link}" target="_blank"> Selected Page: <span>${tour_guide_info.page.title}</span></a>`
+                            : ""
+                        }
+                      </div>
+                  </div>
+                  <div class="page_result">
+                      <div class="search_link_result"></div>
+                  </div>
+              </div>
+              <div class="footer_note_popup">
+                  <button class="btn btn-success submit-note" type="submit">Save Note</button>
+              </div>
+          </div>
+          </div>
+          `;
+
         $(".note_load_overlay").css("display", "none");
         $(".body-content-container").append(mainNotePopup);
         $(".note_popup_container").fadeIn(300);
@@ -502,6 +526,16 @@ jQuery(document).ready(function ($) {
   });
 
   $(document).on("click", ".close_note_popup", function () {
+    tour_guide_info = {
+      name: "",
+      img_src: surfiranDatePrice.blankImg,
+      skills: "",
+      page: {
+        title: "",
+        link: "",
+      },
+    };
+
     $(".note_popup_container").hide("fast");
     setTimeout(() => {
       $(".note_popup_container").remove();
@@ -602,12 +636,6 @@ jQuery(document).ready(function ($) {
   let typingTimer;
   let doneTypingInterval = 500;
 
-  const tour_guide_info = {
-    img_src: "",
-    skills: "",
-    page_link: "",
-  };
-
   $(document).on("click", ".choose-image", function () {
     wp.media.editor.open();
     wp.media.editor.send.attachment = function (props, attachment) {
@@ -621,19 +649,7 @@ jQuery(document).ready(function ($) {
 
   $(document).on("input", ".link-search", function () {
     clearTimeout(typingTimer);
-    typingTimer = setTimeout(doneTyping, doneTypingInterval);
-  });
-
-  function doneTyping() {
-    if ($(".page_search").find(".spinner-grow").length == 0) {
-      $(".page_search").append(
-        `<div class="spinner-grow spinner-grow-sm text-primary" role="status"></div>`
-      );
-    }
-
-    let searchInput = $(".link-search").val().trim();
-
-    if (searchInput.length == 0) {
+    if ($(".link-search").val().trim().length == 0) {
       $(".page_search .spinner-grow").remove();
       $(".search_link_result").empty();
       $(".link-search").css({
@@ -641,6 +657,19 @@ jQuery(document).ready(function ($) {
       });
       return;
     }
+
+    typingTimer = setTimeout(doneTyping, doneTypingInterval);
+  });
+
+  function doneTyping() {
+    $(".search_link_result").empty();
+    if ($(".page_search").find(".spinner-grow").length == 0) {
+      $(".page_search").append(
+        `<div class="spinner-grow spinner-grow-sm text-primary" role="status"></div>`
+      );
+    }
+
+    let searchInput = $(".link-search").val().trim();
 
     $.get(
       `${surfiranDatePrice.site_route}/wp-json/dateandprice/v1/p_link?page_link=${searchInput}`,
@@ -685,23 +714,34 @@ jQuery(document).ready(function ($) {
   $(document).on("click", ".search_link_result .link_result", function () {
     clearTimeout(typingTimer);
 
-    tour_guide_info.page_link = $(this).attr("data-link");
+    tour_guide_info.page.link = $(this).attr("data-link");
+    tour_guide_info.page.title = $(this).find(".page_title").text();
+
     $(".selected_page").html(
-      `<a href="${
-        tour_guide_info.page_link
-      }" target="_blank">Selected Page: <span>${$(this)
-        .find(".page_title")
-        .text()}</span></a>`
+      `<a href="${tour_guide_info.page.link}" target="_blank">Selected Page: <span>${tour_guide_info.page.title}</span></a>`
     );
+
     $(".link-search").val("");
     $(".search_link_result").empty();
   });
 
-  // Add the Guide Skills
+  // Add the Guide Name
+  $(document).on("input", ".guide-name", function () {
+    const guideNameVal = $(this).val().trim();
+    if (!validTourGuide.name(guideNameVal)) {
+      $(".guide_name .warning").html("The entered name is not valid!");
+      tour_guide_info.name = "";
+      return;
+    }
 
+    $(".guide_name .warning").html("");
+    tour_guide_info.name = guideNameVal;
+  });
+
+  // Add the Guide Skills
   $(document).on("input", ".guide-skills", function () {
     const guideSkillsInput = $(this);
-    let skillsInputVal = guideSkillsInput.val().trim().replace(/ /g, "");
+    let skillsInputVal = guideSkillsInput.val().trim();
     const warningSelector = ".guide_details .warning";
     const borderColorError = "2px solid #a90f0f";
     const borderColorDefault = "1px solid #e0e0e0";
@@ -732,18 +772,66 @@ jQuery(document).ready(function ($) {
   $(document).on("click", ".submit-note", function () {
     const note_id = $(".note_popup_container").attr("id");
 
-    console.log(typeof note_id);
-    console.log(tour_guide_info);
-
     if (!isNaN(note_id) && tour_guide_info) {
-      console.log("seted");
-      console.log(Object.values(tour_guide_info));
-    }
+      if (
+        tour_guide_info.img_src.trim().length === 0 ||
+        tour_guide_info.img_src.trim() === surfiranDatePrice.blankImg
+      ) {
+        console.log("Select a Photo ...");
+        return;
+      }
+      if (tour_guide_info.name.trim().length === 0) {
+        console.log("Enter Name ...");
+        return;
+      }
 
-    // $(".note_popup_container").hide();
+      if (tour_guide_info.page.link.trim().length === 0) {
+        console.log("Select a Page ...");
+        return;
+      }
+
+      $.ajax({
+        url:
+          surfiranDatePrice.site_route + `/wp-json/dateandprice/v1/update_note`,
+        method: `PUT`,
+        data: {
+          row_id: note_id,
+          name: tour_guide_info.name,
+          img_src: tour_guide_info.img_src,
+          skills: tour_guide_info.skills,
+          page: tour_guide_info.page,
+        },
+      }).done(function (res) {
+        if (res != true) {
+          console.error(res);
+          return;
+        }
+        tour_guide_info = {
+          name: "",
+          img_src: surfiranDatePrice.blankImg,
+          skills: "",
+          page: {
+            title: "",
+            link: "",
+          },
+        };
+        $(".note_popup_container").hide("fast");
+        setTimeout(() => {
+          $(".note_popup_container").remove();
+        }, 500);
+      });
+    }
   });
 
+  // Validate the name , img and skill guid ....
+  // page link not valid for now ...
   const validTourGuide = {
+    name: function (name) {
+      if (name.length > 0 && !/^[a-zA-Z ,.'-]+$/.test(name)) {
+        return false;
+      }
+      return true;
+    },
     img: function (src) {
       const regex_pattern = /""/;
       if (!regex_pattern.test(src)) {
@@ -754,12 +842,13 @@ jQuery(document).ready(function ($) {
     skill: function (skills) {
       if (
         skills.length > 0 &&
-        !/^[a-zA-Z]+(?:,[a-zA-Z]+)*(?:,)?$/.test(skills)
+        !/^[a-zA-Z'* ]+(?:,[a-zA-Z'* ]*[a-zA-Z'*][a-zA-Z'* ]*)*(?:,)?$/.test(
+          skills
+        )
       ) {
         return false;
       }
       return true;
     },
-    isLink: "",
   };
 });

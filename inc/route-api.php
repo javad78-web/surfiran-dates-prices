@@ -1,57 +1,44 @@
 <?php
 
-add_action('rest_api_init', 'get_date_surfiran_api');
-add_action('rest_api_init', 'post_date_surfiran_api');
-add_action('rest_api_init', 'delete_date_surfiran_api');
-add_action('rest_api_init', 'update_date_surfiran_api');
-add_action('rest_api_init', 'tour_prices_surfiran_api');
-add_action('rest_api_init', 'search_page');
+add_action('rest_api_init', function () {
 
-
-function tour_prices_surfiran_api()
-{
     register_rest_route('dateandprice/v1', 'tables/prices', [
         'methods' => WP_REST_SERVER::ALLMETHODS,
         'callback' => 'tour_prices_api_callback'
     ]);
-}
 
-function search_page()
-{
+    register_rest_route('dateandprice/v1', 'update_note', [
+        'methods' => 'put',
+        'callback' => 'update_note'
+    ]);
+
     register_rest_route('dateandprice/v1', 'p_link', [
         'methods' => 'get',
         'callback' => 'get_page_links'
     ]);
-}
-function update_date_surfiran_api()
-{
+
     register_rest_route('dateandprice/v1', 'tables/update', [
         'methods' => 'put',
         'callback' => 'update_surfiran_api_callback'
     ]);
-}
-function delete_date_surfiran_api()
-{
+
     // /(?P<id>\d+)
     register_rest_route('dateandprice/v1', 'tables/delete', [
         'methods' => 'delete',
         'callback' => 'delete_surfiran_api_callback'
     ]);
-}
-function get_date_surfiran_api()
-{
+
     register_rest_route('dateandprice/v1', 'tables', [
         'methods' => 'get',
         'callback' => 'get_surfiran_api_callback'
     ]);
-}
-function post_date_surfiran_api()
-{
+
     register_rest_route('dateandprice/v1', 'tables', [
         'methods' => 'post',
         'callback' => 'post_surfiran_api_callback'
     ]);
-}
+});
+
 
 function tour_prices_api_callback($data)
 {
@@ -143,7 +130,6 @@ function update_surfiran_api_callback($data)
             'sale_price'    =>  $sale_price,
             'tourstatus'    =>  $tour_status,
             'tablename'     =>  $form_tablename,
-            'date_note'     =>  isset($params['hidden_tournote'][$i]) ? sanitize_text_field($params['hidden_tournote'][$i]) : "",
             'position'      =>  $position,
         ];
 
@@ -265,4 +251,38 @@ function post_surfiran_api_callback($data)
     }
 
     return "Success";
+}
+
+function update_note($data)
+{
+    $params = $data->get_params();
+    global $wpdb;
+    $tablename = $wpdb->prefix . "tables";
+
+    $row_id = sanitize_text_field($params['row_id']);
+    $name = sanitize_text_field($params['name']);
+    $imgSrc = sanitize_text_field($params['img_src']);
+    $skills = sanitize_text_field($params['skills']);
+    $page_link = sanitize_text_field($params['page']['link']);
+    $page_title = sanitize_text_field($params['page']['title']);
+
+    $note_data = [
+        "name" => $name,
+        "img_src" => $imgSrc,
+        "skills" => $skills,
+        "page" => [
+            "link" => $page_link,
+            "title" => $page_title,
+        ]
+    ];
+
+    $args = [
+        'date_note' => json_encode($note_data),
+    ];
+
+    if (!empty($row_id) || isset($row_id)) {
+        $wpdb->update($tablename, $args, ['id' => $row_id]);
+    }
+
+    return true;
 }

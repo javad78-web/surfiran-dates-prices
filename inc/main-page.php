@@ -72,19 +72,6 @@ $exist_tables = array_unique($tablename);
         <div class="body-container">
             <div class="body-header-container">
                 <div class="title"></div>
-                <div class="tour_price_container">
-                    <div class="header_tour_price">
-                        <h3>Add Prices For Tour</h3>
-                        <small>The prices are shown only on the tour link everywhere it is used on the site, not on the table.</small>
-                    </div>
-                    <div class="body_tour_price">
-                        <form class="tour_price_form" id="toure_price_form" method="POST">
-                            <input type="text" name="tour_price" placeholder="Tour Price">
-                            <input type="text" name="sale_tour_price" placeholder="Sale Tour Price">
-                            <button type="submit" class="btn btn-dark">Save Prices</button>
-                        </form>
-                    </div>
-                </div>
                 <div class="desc__for_edit">
                     <!>Warning: Make sure to save and update the table after any changes in the table by clicking the <u>Save Changes</u> button.<!>
                 </div>
