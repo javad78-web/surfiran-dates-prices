@@ -99,7 +99,7 @@ width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"
                                     <div class="guide_specific">
                                         <div class="name"><?= $tour_note->name ?></div>
                                         <div class="skills"><?= str_replace(",", ", ", $tour_note->skills) ?></div>
-                                        <a href="<?= $tour_note->page->link ?>" class="personal_page" style="text-decoration: underline;">View Guide Bio</a>
+                                        <a href="<?= $tour_note->page->link ?>" target="_blank" class="personal_page" style="text-decoration: underline;">View Guide Bio</a>
                                     </div>
                                 </div>
                             </div>
