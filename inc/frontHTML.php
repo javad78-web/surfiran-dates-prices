@@ -96,9 +96,11 @@ width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"
                                 <?php $tour_note = json_decode($value->date_note); ?>
                                 <div class="guid_details">
                                     <img class="personal_img" src="<?= $tour_note->img_src ?>" alt="<?= $tour_note->name ?>">
-                                    <div class="name"><?= $tour_note->name ?></div>
-                                    <div class="skills"><?= $tour_note->skills ?></div>
-                                    <a href="<?= $tour_note->page->link ?>" class="personal_page"><?= $tour_note->page->title ?></a>
+                                    <div class="guide_specific">
+                                        <div class="name"><?= $tour_note->name ?></div>
+                                        <div class="skills"><?= str_replace(",", ", ", $tour_note->skills) ?></div>
+                                        <a href="<?= $tour_note->page->link ?>" class="personal_page"><?= $tour_note->page->title ?></a>
+                                    </div>
                                 </div>
                             </div>
                         <?php } ?>
@@ -120,7 +122,7 @@ width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"
         </div>
         <div class="dateprice_table_footer_container">
             <div class="show_more_button">
-                Show More Upcoming Dates
+                Show More Dates
             </div>
             <div>
                 <span class="dashicons dashicons-arrow-down" style="margin-top: 2px;"></span>

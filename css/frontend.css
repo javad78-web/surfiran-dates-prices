@@ -376,6 +376,41 @@ h6 {
   filter: grayscale(100%);
 }
 
+.guid_details {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+}
+.personal_img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 1px 1px #a4a4a4;
+}
+.guide_specific {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.guide_specific .name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.guide_specific .skills {
+  font-size: 15px;
+  text-wrap: wrap;
+  width: 100%;
+  line-height: 20px;
+}
+
+.guide_specific .personal_page {
+  font-size: 15px;
+  font-weight: bold;
+}
+
 @media all and (min-width: 866px) and (max-width: 1481px) {
   .tour_note {
     width: 95%;
@@ -556,5 +591,18 @@ h6 {
 @media all and (max-width: 500px) {
   .dateprice_table_footer_container {
     width: 95%;
+  }
+
+  .guid_details {
+    gap: 20px;
+    flex-direction: column;
+  }
+  .personal_img {
+    width: 130px;
+    height: 130px;
+  }
+
+  .guide_specific {
+    text-align: center;
   }
 }
