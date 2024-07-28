@@ -99,12 +99,12 @@ width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"
                                     <div class="guide_specific">
                                         <div class="name"><?= $tour_note->name ?></div>
                                         <div class="skills"><?= str_replace(",", ", ", $tour_note->skills) ?></div>
-                                        <a href="<?= $tour_note->page->link ?>" class="personal_page"><?= $tour_note->page->title ?></a>
+                                        <a href="<?= $tour_note->page->link ?>" class="personal_page" style="text-decoration: underline;">View Guide Bio</a>
                                     </div>
                                 </div>
                             </div>
                         <?php } ?>
-                        <div class="tour_detail">
+                        <div class=" tour_detail">
                             <div class="tour_detail_price"><strong <?php echo !empty($value->sale_price) ? "class='expand_have_sale'" : "" ?>><?php echo "€" . $number->format($value->price) . " EUR";  ?></strong><?php echo !empty($value->sale_price) ? "<strong style='color: #EB0000 !important; '> € " . $number->format($value->sale_price) . " EUR</strong>" : "" ?></div>
                             <?php echo !empty($value->sale_price) ? "<div style='font-size: 12px;color: #0a7bbd;margin-bottom: -10px;margin-top: 10px;'>The stated discount applies to groups of 4 or more.</div>" : "" ?>
                             <div class="tour_detail_desc">per adult in a twin share room</div>
