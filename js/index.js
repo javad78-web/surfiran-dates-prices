@@ -466,7 +466,7 @@ jQuery(document).ready(function ($) {
           <div class="note_popup">
               <div class="header_note_popup">
                   <div class="header-content">
-                    <div class="_title">Add Tour Guide</div>
+                    <div class="_title">Add Tour Guide Specifications</div>
                     <div class="close_note_popup">
                         <span class="dashicons dashicons-no"></span>
                     </div>
@@ -496,7 +496,9 @@ jQuery(document).ready(function ($) {
                   </div>
                   <div class="page_search">
                       <label>Search in Pages</label>
-                      <input type="text" class="link-search" placeholder="Search for a Link">
+                      <div class="link-search-input" style="position: relative;">
+                        <input type="text"  class="link-search" placeholder="Search for a Link">
+                      </div>
                       <div class="input-help">If the page is not found, it's not publish.</div>
                         ${
                           tour_guide_info.page.link.length > 0
@@ -645,9 +647,15 @@ jQuery(document).ready(function ($) {
 
   // search on pages
 
+  let link_request = null;
+
   $(document).on("input", ".link-search", function () {
     clearTimeout(typingTimer);
     if ($(".link-search").val().trim().length == 0) {
+      if (link_request) {
+        link_request.abort();
+        link_request = null;
+      }
       $(".page_search .spinner-grow").remove();
       $(".search_link_result").remove();
       $(".link-search").css({
@@ -655,14 +663,13 @@ jQuery(document).ready(function ($) {
       });
       return;
     }
-
     typingTimer = setTimeout(doneTyping, doneTypingInterval);
   });
 
   function doneTyping() {
     $(".search_link_result").remove();
-    if ($(".page_search").find(".spinner-grow").length == 0) {
-      $(".page_search").append(
+    if ($(".link-search-input").find(".spinner-grow").length == 0) {
+      $(".link-search-input").append(
         `<div class="spinner-grow spinner-grow-sm text-primary" role="status"></div>`
       );
     }
@@ -670,7 +677,7 @@ jQuery(document).ready(function ($) {
     let searchInput = $(".link-search").val().trim();
 
     if ($(".link-search").val().trim().length !== 0) {
-      $.get(
+      link_request = $.get(
         `${surfiranDatePrice.site_route}/wp-json/dateandprice/v1/p_link?page_link=${searchInput}`,
         function (data) {
           $(".search_link_result").remove();
@@ -678,7 +685,9 @@ jQuery(document).ready(function ($) {
             border: "2px solid #0fa90f",
           });
         }
-      )
+      );
+
+      link_request
         .done(function (pages) {
           $(".page_search .spinner-grow").remove();
           $(".search_link_result").remove();
@@ -794,7 +803,7 @@ jQuery(document).ready(function ($) {
       }
 
       if (tour_guide_info.page.link.trim().length === 0) {
-        showWarning("Please provide a page link.");
+        showWarning("Please select the guide's personal page link.");
         return;
       }
 
