@@ -465,9 +465,11 @@ jQuery(document).ready(function ($) {
           <div class="note_popup_container" id="${note_row_id}">
           <div class="note_popup">
               <div class="header_note_popup">
-                  <div class="_title">Add Tour Guide</div>
-                  <div class="close_note_popup">
-                      <span class="dashicons dashicons-no"></span>
+                  <div class="header-content">
+                    <div class="_title">Add Tour Guide</div>
+                    <div class="close_note_popup">
+                        <span class="dashicons dashicons-no"></span>
+                    </div>
                   </div>
               </div>
               <div class="main_note_popup">
@@ -490,23 +492,19 @@ jQuery(document).ready(function ($) {
                         tour_guide_info.skills
                       }">
                       <div class="warning"></div>
-                      <div class="input-help">Enter the Skills, separating them with commas</div>
+                      <div class="input-help">Enter the skills, separating them with commas</div>
                   </div>
                   <div class="page_search">
                       <label>Search in Pages</label>
                       <input type="text" class="link-search" placeholder="Search for a Link">
                       <div class="input-help">If the page is not found, it's not publish.</div>
-                      <div class="selected_page">
                         ${
                           tour_guide_info.page.link.length > 0
-                            ? `<a href="${tour_guide_info.page.link}" target="_blank"> Selected Page: <span>${tour_guide_info.page.title}</span></a>`
+                            ? `<div class="selected_page">Selected Page: <a href="${tour_guide_info.page.link}" target="_blank">  <span>${tour_guide_info.page.title}</span></a></div>`
                             : ""
                         }
-                      </div>
                   </div>
-                  <div class="page_result">
-                      <div class="search_link_result"></div>
-                  </div>
+                  <div class="page_result"></div>
               </div>
               <div class="footer_note_popup">
                   <button class="btn btn-success submit-note" type="submit">Save Note</button>
@@ -651,7 +649,7 @@ jQuery(document).ready(function ($) {
     clearTimeout(typingTimer);
     if ($(".link-search").val().trim().length == 0) {
       $(".page_search .spinner-grow").remove();
-      $(".search_link_result").empty();
+      $(".search_link_result").remove();
       $(".link-search").css({
         border: "1px solid #e0e0e0",
       });
@@ -662,7 +660,7 @@ jQuery(document).ready(function ($) {
   });
 
   function doneTyping() {
-    $(".search_link_result").empty();
+    $(".search_link_result").remove();
     if ($(".page_search").find(".spinner-grow").length == 0) {
       $(".page_search").append(
         `<div class="spinner-grow spinner-grow-sm text-primary" role="status"></div>`
@@ -671,42 +669,46 @@ jQuery(document).ready(function ($) {
 
     let searchInput = $(".link-search").val().trim();
 
-    $.get(
-      `${surfiranDatePrice.site_route}/wp-json/dateandprice/v1/p_link?page_link=${searchInput}`,
-      function (data) {
-        $(".search_link_result").empty();
-        $(".link-search").css({
-          border: "2px solid #0fa90f",
-        });
-      }
-    )
-      .done(function (pages) {
-        $(".page_search .spinner-grow").remove();
-        $(".search_link_result").empty();
+    if ($(".link-search").val().trim().length !== 0) {
+      $.get(
+        `${surfiranDatePrice.site_route}/wp-json/dateandprice/v1/p_link?page_link=${searchInput}`,
+        function (data) {
+          $(".search_link_result").remove();
+          $(".link-search").css({
+            border: "2px solid #0fa90f",
+          });
+        }
+      )
+        .done(function (pages) {
+          $(".page_search .spinner-grow").remove();
+          $(".search_link_result").remove();
 
-        if (pages.length > 0) {
-          pages.map(function (page) {
-            $(".search_link_result").append(
-              `<div class="link_result" data-link="${page.link}">
+          $(".page_result").html(`<div class="search_link_result"></div>`);
+          if (pages.length > 0) {
+            pages.map(function (page) {
+              $(".search_link_result").append(
+                `<div class="link_result" data-link="${page.link}">
                 <div class="page_title">${page.title}</div>
                 <span>${page.link}</span>
               </div>`
+              );
+            });
+          } else {
+            $(".link-search").css({
+              border: "2px solid #a90f0f",
+            });
+            $(".search_link_result").html(
+              `<div style="padding: 5px 10px;font-size: 15px;font-weight: bold;color: #a90f0f;border: 1px solid #a90f0f;
+              border-radius: 5px;">Nothing Found!</div>`
             );
-          });
-        } else {
+          }
+        })
+        .fail(function () {
           $(".link-search").css({
             border: "2px solid #a90f0f",
           });
-          $(".search_link_result").html(
-            `<div style="padding: 10px;font-size: 17px;font-weight: bold;color: #a90f0f;">Nothing Found!</div>`
-          );
-        }
-      })
-      .fail(function () {
-        $(".link-search").css({
-          border: "2px solid #a90f0f",
         });
-      });
+    }
   }
 
   // Click Event on page links Result...
@@ -717,12 +719,14 @@ jQuery(document).ready(function ($) {
     tour_guide_info.page.link = $(this).attr("data-link");
     tour_guide_info.page.title = $(this).find(".page_title").text();
 
-    $(".selected_page").html(
-      `<a href="${tour_guide_info.page.link}" target="_blank">Selected Page: <span>${tour_guide_info.page.title}</span></a>`
+    $(".selected_page").remove();
+
+    $(".page_search").append(
+      `<div class="selected_page">Selected Page: <a href="${tour_guide_info.page.link}" target="_blank"> <span>${tour_guide_info.page.title}</span></a></div>`
     );
 
     $(".link-search").val("");
-    $(".search_link_result").empty();
+    $(".search_link_result").remove();
   });
 
   // Add the Guide Name
@@ -771,22 +775,26 @@ jQuery(document).ready(function ($) {
 
   $(document).on("click", ".submit-note", function () {
     const note_id = $(".note_popup_container").attr("id");
+    $(".header_note_popup .warning").remove();
+
+    const sumbitBtn = $(this);
 
     if (!isNaN(note_id) && tour_guide_info) {
       if (
         tour_guide_info.img_src.trim().length === 0 ||
         tour_guide_info.img_src.trim() === surfiranDatePrice.blankImg
       ) {
-        console.log("Select a Photo ...");
+        showWarning("Please select a guide image.");
         return;
       }
+
       if (tour_guide_info.name.trim().length === 0) {
-        console.log("Enter Name ...");
+        showWarning("Please enter the guide's name.");
         return;
       }
 
       if (tour_guide_info.page.link.trim().length === 0) {
-        console.log("Select a Page ...");
+        showWarning("Please provide a page link.");
         return;
       }
 
@@ -800,6 +808,12 @@ jQuery(document).ready(function ($) {
           img_src: tour_guide_info.img_src,
           skills: tour_guide_info.skills,
           page: tour_guide_info.page,
+        },
+        beforeSend: function () {
+          sumbitBtn.prop("disabled", true);
+          $(".footer_note_popup").append(`
+           <div class="spinner-grow spinner-grow-sm text-success" role="status" style="position: initial;"></div>
+          `);
         },
       }).done(function (res) {
         if (res != true) {
@@ -842,7 +856,7 @@ jQuery(document).ready(function ($) {
     skill: function (skills) {
       if (
         skills.length > 0 &&
-        !/^[a-zA-Z'* ]+(?:,[a-zA-Z'* ]*[a-zA-Z'*][a-zA-Z'* ]*)*(?:,)?$/.test(
+        !/^[a-zA-Z0-9'* ]+(?:,[a-zA-Z0-9'* ]*[a-zA-Z0-9'*][a-zA-Z0-9'* ]*)*(?:,)?$/.test(
           skills
         )
       ) {
@@ -850,5 +864,11 @@ jQuery(document).ready(function ($) {
       }
       return true;
     },
+  };
+
+  const showWarning = (message) => {
+    $(".header_note_popup").append(
+      `<div class="warning" style="font-weight: bold; font-size: 15px;">${message}</div>`
+    );
   };
 });
